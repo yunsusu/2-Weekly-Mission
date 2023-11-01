@@ -283,6 +283,7 @@ main{
     right: 1.5rem;
     transform: translateY(-50%);
     cursor: pointer;
+    width: 1.6rem;
 }
 .login .sign_top form #submit{
     padding: 1.6rem 2.0rem;
