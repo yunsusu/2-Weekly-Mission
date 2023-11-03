@@ -176,7 +176,7 @@ main {
     line-height: 150%;
 }
 
-.sec .right img {
+.sec .sec_img img {
     width: 55.0rem;
 }
 
@@ -296,38 +296,38 @@ main {
     flex-direction: column;
 }
 
-.login .sign_top {
+.login .sign_form {
     width: 100%;
 }
 
-.login .sign_top form .write {
+.login .sign_form form .write {
     margin: 3.0rem 0;
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
 }
 
-.login .sign_top form .write label {
+.login .sign_form form .write label {
     font-size: 1.4rem;
     font-weight: 400;
 }
 
-.login .sign_top form .write input {
+.login .sign_form form .write input {
     width: 100%;
     padding: 1.8rem 1.5rem;
     border-radius: 0.8rem;
     border: 0.1rem solid var(--gray3);
 }
 
-.login .sign_top form .write input:focus {
+.login .sign_form form .write input:focus {
     border: 0.1rem solid var(--blue);
 }
 
-.login .sign_top .pwd {
+.login .sign_form .pwd {
     position: relative;
 }
 
-.login .sign_top .pwd .eye {
+.login .sign_form .pwd .eye {
     position: absolute;
     top: 50%;
     right: 1.5rem;
@@ -336,7 +336,7 @@ main {
     width: 1.6rem;
 }
 
-.login .sign_top form #submit {
+.login .sign_form form #submit {
     padding: 1.6rem 2.0rem;
     border-radius: 0.8rem;
     background: linear-gradient(91deg, #6D6AFE 0.12%, #6AE3FE 101.84%);
@@ -345,7 +345,7 @@ main {
     font-weight: 600;
 }
 
-.login .sign_bottom {
+.login .sign_social {
     width: 100%;
     padding: 1.2rem 2.4rem;
     display: flex;
@@ -357,18 +357,18 @@ main {
     background: var(--gray4);
 }
 
-.login .sign_bottom p {
+.login .sign_social p {
     font-size: 1.4rem;
     font-weight: 400;
     color: var(--black);
 }
 
-.login .sign_bottom .social {
+.login .sign_social .social {
     display: flex;
     gap: 1.6rem;
 }
 
-.login .sign_bottom .social img {
+.login .sign_social .social img {
     width: 4.2rem;
     height: 4.2rem;
 }
@@ -391,20 +391,20 @@ footer .foot_inner {
     font-size: 1.6rem;
 }
 
-footer .foot_inner .mid {
+footer .foot_inner .foot_mid {
     color: #cfcfcf;
     display: flex;
 }
 
-footer .foot_inner .mid a:first-child {
+footer .foot_inner .foot_mid a:first-child {
     margin-right: 3.0rem;
 }
 
-footer .foot_inner .right a {
+footer .foot_inner .foot_img a {
     margin-right: 1.2rem;
 }
 
-footer .foot_inner .right a:last-child {
+footer .foot_inner .foot_img a:last-child {
     margin-right: 0;
 }
 
@@ -440,7 +440,7 @@ body .sec .mobile_text {
         gap: 5.1rem;
     }
 
-    .sec .right img {
+    .sec .sec_img img {
         width: 38.0rem;
     }
 
@@ -500,7 +500,7 @@ body .sec .mobile_text {
         font-size: 2.4rem;
     }
 
-    .sec .right img {
+    .sec .sec_img img {
         width: 100%;
     }
 
