@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>signup</title>
     <link rel="stylesheet" href="../style.css">
+
+    <script defer src="../js/custom.js"></script>
 </head>
 
 <body id="signin">
@@ -25,7 +27,10 @@
                     <label for="pwd">비밀번호</label>
                     <div class="pwd">
                         <input type="password" name="pwd" id="pwd" />
-                        <img src="../img/eye-off.png" alt="eye-off" class="eye" />
+                        <div class="eye">
+                            <img src="../img/eye-off.png" alt="eye-off" class="eye_off" />
+                            <img src="../img/eye-on.png" alt="eye-on" class="eye_on eye_none" />
+                        </div>
                     </div>
                 </div>
                 <input type="submit" value="로그인" id="submit" />
