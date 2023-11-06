@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>signup</title>
     <link rel="stylesheet" href="../style.css">
+
+    <script defer type="module" src="../js/signup.js"></script>
 </head>
 
 <body id="signin">
@@ -16,22 +18,34 @@
 
             <p>이미 회원이신가요? <a href="../signin">로그인 하기</a></p>
 
-            <form action="/">
+            <form action="/folder" id="signup_form">
                 <div class="write">
-                    <label for="mail">이메일</label>
-                    <input type="email" name="mail" id="mail" />
-
-
-                    <label for="pwd">비밀번호</label>
-                    <div class="pwd">
-                        <input type="password" name="pwd" id="pwd" />
-                        <img src="../img/eye-off.png" alt="eye-off" class="eye" />
+                    <div class="input_inner">
+                        <label for="mail">이메일</label>
+                        <input type="email" name="mail" id="mail" />
                     </div>
 
-                    <label for="pwd">비밀번호 확인</label>
-                    <div class="pwd">
-                        <input type="password" name="pwd" id="pwd" />
-                        <img src="../img/eye-off.png" alt="eye-off" class="eye" />
+
+                    <div class="input_inner">
+                        <label for="pwd">비밀번호</label>
+                        <div class="pwd">
+                            <input type="password" name="pwd" class="pwd1" />
+                            <div class="eye1 eye">
+                                <img src="../img/eye-off.png" alt="eye-off" class="eye_off" />
+                                <img src="../img/eye-on.png" alt="eye-on" class="eye_on eye_none" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input_inner">
+                        <label for="pwd">비밀번호 확인</label>
+                        <div class="pwd">
+                            <input type="password" name="pwd" class="pwd2" />
+                            <div class="eye2 eye">
+                                <img src="../img/eye-off.png" alt="eye-off" class="eye_off" />
+                                <img src="../img/eye-on.png" alt="eye-on" class="eye_on eye_none" />
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <input type="submit" value="회원가입" id="submit" />

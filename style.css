@@ -13,7 +13,7 @@ ol {
 
 a {
     text-decoration: none;
-    color: inherit
+    color: inherit;
 }
 
 :root {
@@ -307,9 +307,18 @@ main {
     gap: 1.2rem;
 }
 
+.login .sign_form form .write .input_warning {
+    margin-top: 0.3rem;
+    text-align: left;
+    color: var(--red);
+    font-size: 1.4rem;
+}
+
 .login .sign_form form .write label {
     font-size: 1.4rem;
     font-weight: 400;
+    margin-bottom: 1.5rem;
+    display: block;
 }
 
 .login .sign_form form .write input {
@@ -329,11 +338,15 @@ main {
 
 .login .sign_form .pwd .eye {
     position: absolute;
-    top: 50%;
+    top: 1.8rem;
     right: 1.5rem;
-    transform: translateY(-50%);
+    /* transform: translateY(-50%); */
     cursor: pointer;
     width: 1.6rem;
+}
+
+.login .sign_form .pwd .eye_none {
+    display: none;
 }
 
 .login .sign_form form #submit {
