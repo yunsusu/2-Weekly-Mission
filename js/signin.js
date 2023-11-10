@@ -2,6 +2,9 @@ let eye = document.querySelector('.eye');
 let pwd = document.querySelector('#pwd');
 let mail = document.querySelector("#mail");
 let submit = document.querySelector("#submit");
+let pwdWarning = eye.nextElementSibling;
+let mailWarning = mail.nextElementSibling;
+let email_format = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
 
 function eye_toggle(){
     for(let i = 0; i<eye.children.length; i++){
@@ -14,83 +17,68 @@ function eye_toggle(){
         pwd.type = 'password';
     };
 }
-eye.addEventListener('click', eye_toggle);
 
+function setmessage(a){
+    let message = document.createElement("p");
+    message.innerHTML = a;
+    message.classList.add("input_warning");
+    return message;
+}
+
+function mailwrong(a){
+    if(mailWarning){
+        mail.parentElement.replaceChild(a, mailWarning);
+    }else{
+        mail.parentElement.append(a);
+    }
+}
+
+function pwdwrong(a){
+    if(pwdWarning){
+        pwd.parentElement.replaceChild(a, pwdWarning);
+    }else{
+        pwd.parentElement.append(a);
+    }
+}
 
 function mail_focusout(a){
-    let email_format = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
-    let mailWarning = mail.nextElementSibling;
-
-    let mail_null = document.createElement("p");
-    mail_null.innerHTML = "이메일을 입력해주세요.";
-    mail_null.classList.add("input_warning");
-
-    let mail_wrong = document.createElement("p");
-    mail_wrong.innerHTML = "올바른 이메일 주소가 아닙니다.";
-    mail_wrong.classList.add("input_warning");
-
+    let mail_null = setmessage("이메일을 입력해주세요.")
+    let mail_wrong = setmessage("올바른 이메일 주소가 아닙니다.");
     if(mail.value === ""){
         mail.style.borderColor = "#ff5b56";
-        if(mailWarning){
-            mail.parentElement.replaceChild(mail_null, mailWarning);
-        }else{
-            mail.parentElement.append(mail_null);
-        }
+        mailwrong(mail_null);
     }else if(!email_format.test(mail.value)){
         mail.style.borderColor = "#ff5b56";
-        if(mailWarning){
-            mail.parentElement.replaceChild(mail_wrong, mailWarning);
-        }else{
-            mail.parentElement.append(mail_wrong);
-        }
+        mailwrong(mail_wrong);
     }else{
         mail.style.borderColor = "#ccd5e3";
         mail.parentElement.removeChild(mail.nextElementSibling);
     }
 }
 
-mail.addEventListener("focusout",mail_focusout);
-
 function login_wrong_pwd(){
-    let pwdWarning = eye.nextElementSibling;
-    let mailWarning = mail.nextElementSibling;
-
     pwd.style.borderColor = "#ff5b56";
-
-    let pwd_noligin = document.createElement("p");
-    pwd_noligin.innerHTML = "비밀번호를 확인해주세요.";
-    pwd_noligin.classList.add("input_warning");
-
+    let pwd_noligin = setmessage("비밀번호를 확인해주세요.")
     if(pwdWarning || mailWarning){
-        if(pwdWarning && !mailWarning){
-            pwd.parentElement.replaceChild(pwd_noligin, pwdWarning);
-        }else if(!pwdWarning && mailWarning){
-            pwd.parentElement.append(pwd_noligin);
-        }else{
-            pwd.parentElement.replaceChild(pwd_noligin, pwdWarning);
-        }
+        pwd.parentElement.replaceChild(pwd_noligin, pwdWarning);
+    }else if(pwdWarning && !mailWarning){
+        pwd.parentElement.replaceChild(pwd_noligin, pwdWarning);
+    }else if(!pwdWarning && mailWarning){
+        pwd.parentElement.append(pwd_noligin);
     }else{
         pwd.parentElement.append(pwd_noligin);
     }
 }
 
 function login_wrong_mail(){
-    let pwdWarning = eye.nextElementSibling;
-    let mailWarning = mail.nextElementSibling;
-
-    let mail_noligin = document.createElement("p");
-    mail_noligin.innerHTML = "이메일을 확인해주세요.";
-    mail_noligin.classList.add("input_warning");
-
+    let mail_noligin = setmessage("이메일을 확인해주세요.");
     mail.style.borderColor = "#ff5b56";
     if(pwdWarning || mailWarning){
-        if(pwdWarning && !mailWarning){
-            mail.parentElement.append(mail_noligin);
-        }else if(!pwdWarning && mailWarning){
-            mail.parentElement.replaceChild(mail_noligin, mailWarning);
-        }else{
-            mail.parentElement.replaceChild(mail_noligin, mailWarning);
-        }
+        mail.parentElement.replaceChild(mail_noligin, mailWarning);
+    }else if(pwdWarning && !mailWarning){
+        mail.parentElement.append(mail_noligin);
+    }else if(!pwdWarning && mailWarning){
+        mail.parentElement.replaceChild(mail_noligin, mailWarning);
     }else{
         mail.parentElement.append(mail_noligin);
     }
@@ -109,28 +97,16 @@ function login_go(e){
     }
 }
 
-submit.addEventListener("click",login_go);
-
 function pwd_focusout(){
-    let pwdWarning = eye.nextElementSibling;
-
-    let pwd_null = document.createElement("p");
-    pwd_null.innerHTML = "비밀번호를 입력해주세요.";
-    pwd_null.classList.add("input_warning");
-
+    let pwd_null = setmessage("비밀번호를 입력해주세요.")
     if(pwd.value === ""){
         pwd.style.borderColor = "#ff5b56";
-        if(pwdWarning){
-            pwd.parentElement.replaceChild(pwd_null, pwdWarning);
-        }else{
-            pwd.parentElement.append(pwd_null);
-        }
+        pwdwrong(pwd_null)
     }else{
         pwd.style.borderColor = "#ccd5e3";
         pwdWarning.remove()
     }
 }
-pwd.addEventListener("focusout", pwd_focusout);
 
 function input_ing(e){
     if(e.target.name === "pwd"){
@@ -140,5 +116,9 @@ function input_ing(e){
     }
 }
 
+eye.addEventListener('click', eye_toggle);
+mail.addEventListener("focusout",mail_focusout);
+submit.addEventListener("click",login_go);
+pwd.addEventListener("focusout", pwd_focusout);
 mail.addEventListener("input",input_ing)
 pwd.addEventListener("input",input_ing)
