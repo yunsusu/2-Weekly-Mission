@@ -51,6 +51,7 @@ header {
     z-index: 1;
 }
 
+
 .header_inner {
     width: 100%;
     max-width: 152.0rem;
@@ -60,6 +61,7 @@ header {
     justify-content: space-between;
     align-items: center;
 }
+
 
 .header_inner h1 {
     width: 13.3rem;
@@ -245,7 +247,6 @@ main {
     font-weight: 500;
     line-height: 150%;
 }
-
 
 /* signin,signup page */
 #signin {
@@ -532,3 +533,4 @@ body .sec .mobile_text {
 
 /* ? */
 @media all and (max-width:374px) {}
+
