@@ -51,8 +51,30 @@ function mail_focusout(a){
 
 mail.addEventListener("focusout",mail_focusout);
 
+function login_wrong_pwd(){
+    let pwdWarning = eye.nextElementSibling;
+    let mailWarning = mail.nextElementSibling;
 
-function login_go(e){
+    pwd.style.borderColor = "#ff5b56";
+
+    let pwd_noligin = document.createElement("p");
+    pwd_noligin.innerHTML = "비밀번호를 확인해주세요.";
+    pwd_noligin.classList.add("input_warning");
+
+    if(pwdWarning || mailWarning){
+        if(pwdWarning && !mailWarning){
+            pwd.parentElement.replaceChild(pwd_noligin, pwdWarning);
+        }else if(!pwdWarning && mailWarning){
+            pwd.parentElement.append(pwd_noligin);
+        }else{
+            pwd.parentElement.replaceChild(pwd_noligin, pwdWarning);
+        }
+    }else{
+        pwd.parentElement.append(pwd_noligin);
+    }
+}
+
+function login_wrong_mail(){
     let pwdWarning = eye.nextElementSibling;
     let mailWarning = mail.nextElementSibling;
 
@@ -60,31 +82,30 @@ function login_go(e){
     mail_noligin.innerHTML = "이메일을 확인해주세요.";
     mail_noligin.classList.add("input_warning");
 
-    let pwd_noligin = document.createElement("p");
-    pwd_noligin.innerHTML = "비밀번호를 확인해주세요.";
-    pwd_noligin.classList.add("input_warning");
+    mail.style.borderColor = "#ff5b56";
+    if(pwdWarning || mailWarning){
+        if(pwdWarning && !mailWarning){
+            mail.parentElement.append(mail_noligin);
+        }else if(!pwdWarning && mailWarning){
+            mail.parentElement.replaceChild(mail_noligin, mailWarning);
+        }else{
+            mail.parentElement.replaceChild(mail_noligin, mailWarning);
+        }
+    }else{
+        mail.parentElement.append(mail_noligin);
+    }
+}
 
+function login_go(e){
     if(mail.value === "test@codeit.com" && pwd.value === "codeit101"){
         
+    }else if(mail.value === "test@codeit.com" && pwd.value != "codeit101"){
+        e.preventDefault()
+        login_wrong_pwd()
     }else {
         e.preventDefault()
-        pwd.style.borderColor = "#ff5b56";
-        mail.style.borderColor = "#ff5b56";
-        if(pwdWarning || mailWarning){
-            if(pwdWarning && !mailWarning){
-                mail.parentElement.append(mail_noligin);
-                pwd.parentElement.replaceChild(pwd_noligin, pwdWarning);
-            }else if(!pwdWarning && mailWarning){
-                pwd.parentElement.append(pwd_noligin);
-                mail.parentElement.replaceChild(mail_noligin, mailWarning);
-            }else{
-                pwd.parentElement.replaceChild(pwd_noligin, pwdWarning);
-                mail.parentElement.replaceChild(mail_noligin, mailWarning);
-            }
-        }else{
-            mail.parentElement.append(mail_noligin);
-            pwd.parentElement.append(pwd_noligin);
-        }
+        login_wrong_mail()
+        login_wrong_pwd()
     }
 }
 
@@ -106,7 +127,7 @@ function pwd_focusout(){
         }
     }else{
         pwd.style.borderColor = "#ccd5e3";
-        eye.nextElementSibling.remove()
+        pwdWarning.remove()
     }
 }
 pwd.addEventListener("focusout", pwd_focusout);
