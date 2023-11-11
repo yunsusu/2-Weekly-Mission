@@ -1,6 +1,6 @@
 let eye1 = document.querySelector('.eye1');
 let eye2 = document.querySelector('.eye2');
-// let eye = document.querySelector('.eye');
+let eyes = document.querySelector('.eye');
 let pwd1 = document.querySelector('.pwd1');
 let pwd2 = document.querySelector('.pwd2');
 let mail = document.querySelector("#mail");
@@ -44,7 +44,7 @@ function mailwrong(a){
         mail.parentElement.append(a);
     }
 }
-function pwdwrong(a,b){
+function pwdwrong(a,b,pwd){
     if(b){
         pwd.parentElement.replaceChild(a, b);
     }else{
@@ -73,48 +73,32 @@ function mail_focusout(a){
 }
 
 function pwd_focusout(pwd, eye) {
-
-let pwdWarning = eye.nextElementSibling;
+    let pwdWarning = eye.nextElementSibling;
     let pwd_null = setmessage("비밀번호를 입력해주세요.");
     let pwd_no = setmessage("비밀번호가 일치하지 않아요.")
     let pwd_eight = setmessage("비밀번호는 영문, 숫자 조합 8자 이상 입력해주세요.")
 
-    if (pwd1.value !== pwd2.value && pwd2.value !== "") {
-        pwd2.style.borderColor = "#ff5b56";pwd2.parentElement.append(pwd_no);
-        if (pwdWarning) pwdWarning.remove();
-    }else if (pwd1.value === pwd2.value && pwd2.value !== "") {
+    pwd.style.borderColor = "#ff5b56";
+    if(pwd.value === ""){
+        pwdwrong(pwd_null,pwdWarning,pwd)
+    }else if(pwd1.value !== pwd2.value && pwd2.value !== "" && pwd === pwd2){
+        pwdwrong(pwd_no,pwdWarning,pwd)
+    }else if(pwd.value.length < 8 || pwd_ei.test(pwd.value)){
+        pwdwrong(pwd_eight,pwdWarning,pwd)
+    }else{
+        pwd1.style.borderColor = "#ccd5e3";
         pwd2.style.borderColor = "#ccd5e3";
-        if (pwdWarning) pwdWarning.remove();
-    }
-
-    if (pwd.value === "") {
-        pwd.style.borderColor = "#ff5b56";
-        if (pwdWarning) {
-            pwd.parentElement.replaceChild(pwd_null, pwdWarning);
-        } else {
-            pwd.parentElement.append(pwd_null);
-            if (pwdWarning) pwdWarning.remove();
-        }
-    } else if (pwd1.value.length < 8 || !pwd_ei.test(pwd1.value)) {
-        pwd.style.borderColor = "#ff5b56";
-        if (pwdWarning) {
-            pwd.parentElement.replaceChild(pwd_eight, pwdWarning);
-        } else {
-            pwd.parentElement.append(pwd_eight);
-            if (pwdWarning) pwdWarning.remove();
-        }
-    } else {
-        pwd.style.borderColor = "#ccd5e3";
         if (pwdWarning) pwdWarning.remove();
     }
 }
 
 
 pwd1.addEventListener("focusout", function(){
-    pwd_focusout(pwd1, eye1, pwdWarning1)
+    pwd_focusout(pwd1, eye1)
 });
 pwd2.addEventListener("focusout", function(){
-    pwd_focusout(pwd2, eye2, pwdWarning2)
+    pwd_focusout(pwd2, eye2)
+    
 });
 
 function input_ing(e) {
