@@ -50,7 +50,6 @@ header {
     left: 0;
     z-index: 1;
 }
-
 .header_inner {
     width: 100%;
     max-width: 152.0rem;
@@ -246,7 +245,6 @@ main {
     line-height: 150%;
 }
 
-
 /* signin,signup page */
 #signin {
     background-color: var(--gray5);
@@ -345,10 +343,10 @@ main {
     width: 1.6rem;
 }
 
+
 .login .sign_form .pwd .eye_none {
     display: none;
 }
-
 .login .sign_form form #submit {
     padding: 1.6rem 2.0rem;
     border-radius: 0.8rem;
@@ -544,4 +542,5 @@ body .sec .mobile_text {
 }
 
 /* ? */
+
 @media all and (max-width:374px) {}
