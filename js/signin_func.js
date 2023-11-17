@@ -1,5 +1,10 @@
 import {eye ,pwd ,mail, submit, pwdWarning,mailWarning,email_format} from "./sign_let.js"
 import {setmessage, wrong} from "./sign.js"
+
+if(window.localStorage.getItem("codeitToken")){
+    location.replace("../folder")
+}
+
 function login_wrong_pwd(){
     let mailWarning = mail.nextElementSibling;
     let pwdWarning = eye.nextElementSibling;
@@ -56,32 +61,35 @@ function mail_focusout(a){
         mail.style.borderColor = "#ccd5e3";
     }
 }
-function login_go(e){e.preventDefault()
-    const logining = {
-        email:"test@codeit.com",
-        password : "sprint101",
-    }
-    fetch("https://bootcamp-api.codeit.kr/api/sign-in",{
-        method : 'POST',
-        body : JSON.stringify(logining),
-    })
-        .then((response)=> response.json())
-        .then((result)=> {console.log(result)
-            if(mail.value === "test@codeit.com" && pwd.value === "codeit101"){
-                console.log('login~')
-            }else if(mail.value === "test@codeit.com" && pwd.value !== "codeit101"){
-                e.preventDefault()
-                login_wrong_pwd()
-            }else if(mail.value !== "test@codeit.com" && pwd.value !== "codeit101"){
-                e.preventDefault()
-                login_wrong_pwd()
-                login_wrong_mail()
-            }
+function login_go(e){
+    e.preventDefault()
+    if(mail.value === "test@codeit.com" && pwd.value === "sprint101"){
+        const logining = {
+            email:mail.value,
+            password : pwd.value,
+        }
+        fetch("https://bootcamp-api.codeit.kr/api/sign-in",{
+            method : 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body : JSON.stringify(logining),
         })
-        .catch((error)=>{console.log(error)})
-        .finally(()=>{console.log("asdf")})
-
-    
+            .then((response)=> response.json())
+            .then((result)=> {console.log(result.data.accessToken)
+                window.localStorage.setItem("codeitToken", result.data.accessToken)
+            })
+            .catch((error)=>{console.log(error)})
+            .finally(()=>{location.replace("../folder")})
+            
+    }else if(mail.value === "test@codeit.com" && pwd.value !== "sprint101"){
+        e.preventDefault()
+        login_wrong_pwd()
+    }else if(mail.value !== "test@codeit.com" && pwd.value !== "sprint101"){
+        e.preventDefault()
+        login_wrong_pwd()
+        login_wrong_mail()
+    }
 }
 function pwd_focusout(){
     let pwdWarning = eye.nextElementSibling;
