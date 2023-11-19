@@ -1,4 +1,4 @@
-import {eye ,pwd ,mail, submit, pwdWarning,mailWarning,email_format} from "./sign_let.js"
+import {eye ,pwd ,mail, submit, pwdWarning,mailWarning,email_format} from "./sign_name.js"
 import {setmessage, wrong} from "./sign.js"
 
 if(window.localStorage.getItem("codeitToken")){

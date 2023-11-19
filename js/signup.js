@@ -1,5 +1,5 @@
 import {eye_toggle, mail_focusout, pwd_focusout, input_ing,login_go,keyenter} from "./signup_func.js"
-import {eye1,eye2,pwd1, pwd2, mail, submit, input, email_format, pwd_ei,upform} from "./sign_let.js"
+import {eye1,eye2,pwd1, pwd2, mail, submit, input, email_format, pwd_ei,upform} from "./sign_name.js"
 
 eye1.addEventListener('click', function () {
     eye_toggle(eye1, pwd1);

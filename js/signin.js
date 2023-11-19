@@ -1,6 +1,6 @@
 import { eye_toggle, mail_focusout,login_go,pwd_focusout,input_ing} from "./signin_func.js"
 
-import {eye ,pwd ,mail, submit, pwdWarning,mailWarning,email_format} from "./sign_let.js"
+import {eye ,pwd ,mail, submit, pwdWarning,mailWarning,email_format} from "./sign_name.js"
 
 eye.addEventListener('click', eye_toggle);
 mail.addEventListener("focusout",mail_focusout);
