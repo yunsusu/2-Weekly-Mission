@@ -60,7 +60,6 @@ header {
     justify-content: space-between;
     align-items: center;
 }
-
 .header_inner h1 {
     width: 13.3rem;
     height: 2.4rem;
@@ -246,7 +245,6 @@ main {
     line-height: 150%;
 }
 
-
 /* signin,signup page */
 #signin {
     background-color: var(--gray5);
@@ -348,7 +346,6 @@ main {
 .login .sign_form .pwd .eye_none {
     display: none;
 }
-
 .login .sign_form form #submit {
     padding: 1.6rem 2.0rem;
     border-radius: 0.8rem;
