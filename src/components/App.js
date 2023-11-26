@@ -13,7 +13,6 @@ function App() {
     img: "",
   });
   const [cardData, setCardData] = useState({});
-  console.log(cardData);
   return (
     <div>
       <Header
