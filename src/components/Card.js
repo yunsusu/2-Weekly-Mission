@@ -1,34 +1,68 @@
-// import { useEffect, useState } from "react";
+import { useState } from "react";
+import * as F from "./Style";
 import nullImg from "../img/nullimg.png";
 import logo from "../img/logo.png";
+import kebab from "../img/kebab.png";
+import star from "../img/star.png";
 import { useFormatDate } from "../utils/useformatDate";
 import { useAgo } from "../utils/useAgo";
+import { Link } from "react-router-dom";
 
 function Card({ data }) {
-  const formattedDate = useFormatDate(data.createdAt);
-  const min = calculateElapsedTime(data.createdAt);
+  const {
+    created_at,
+    createdAt,
+    description,
+    image_source,
+    title,
+    url,
+    imageSource,
+    id,
+  } = data;
+  const time = createdAt || created_at;
+  const formattedDate = useFormatDate(time);
+  const min = calculateElapsedTime(time);
   const ago = useAgo(min);
-  const imageSource = data.imageSource || nullImg;
+  const image = imageSource || image_source;
+  const [kebabBool, setKebabBool] = useState(false);
+
+  const handleKebabClick = () => {
+    setKebabBool((prevBool) => !prevBool);
+  };
 
   return (
-    <div className={`card card${data.id}`}>
-      <a href={`${data.url}`} target="_blank" rel="noopener noreferrer">
+    <div className={`card card${id}`}>
+      <Link to={`${url}`} target="_blank" rel="noopener noreferrer">
         <div className="cardImgWrap">
-          {data.imageSource === undefined ? (
+          {image_source == undefined && imageSource == null ? (
             <>
-              <img src={`${imageSource}`} alt={`${data.title}`} />
+              <img src={nullImg} alt={`${title}`} />
               <img src={logo} alt="logo" className="nullImg" />
             </>
           ) : (
-            <img src={`${imageSource}`} alt={`${data.title}`} />
+            <img src={`${image}`} alt={`${title}`} />
           )}
         </div>
-        <div className="cardText">
-          <p className="ago">{`${ago}`}</p>
-          <p className="des">{`${data.description}`}</p>
-          <p className="cardDate">{`${formattedDate}`}</p>
-        </div>
-      </a>
+      </Link>
+      <F.star src={star} />
+      <div className="cardText">
+        <F.kebabAgo>
+          <p className="ago">{`${ago}`}</p>{" "}
+          <F.kebab onClick={handleKebabClick}>
+            <img src={kebab} />
+          </F.kebab>
+          {kebabBool ? (
+            <F.kebabSelect>
+              <F.kebabSelectList>삭제하기</F.kebabSelectList>
+              <F.kebabSelectList>폴더에 추가</F.kebabSelectList>
+            </F.kebabSelect>
+          ) : (
+            <></>
+          )}
+        </F.kebabAgo>
+        <p className="des">{`${description}`}</p>
+        <p className="cardDate">{`${formattedDate}`}</p>
+      </div>
     </div>
   );
 }
@@ -42,4 +76,5 @@ function calculateElapsedTime(dateString) {
 
   return elapsedMinutes;
 }
+
 export default Card;

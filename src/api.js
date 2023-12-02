@@ -1,5 +1,5 @@
 export async function UserApi() {
-  const query = await fetch("https://bootcamp-api.codeit.kr/api/sample/user");
+  const query = await fetch("https://bootcamp-api.codeit.kr/api/users/1");
   const response = await query.json();
   return response;
 }
@@ -8,8 +8,15 @@ export function getFolders() {
     res.json()
   );
 }
-// export async function getFolders() {
-//   const query = await fetch("https://bootcamp-api.codeit.kr/api/sample/folder");
-//   const response = await query.json();
-//   return response;
-// }
+export async function folderData() {
+  const query = await fetch(
+    "https://bootcamp-api.codeit.kr/api/users/1/folders"
+  );
+  const response = await query.json();
+  return response;
+}
+export async function foldLinks() {
+  const query = await fetch(`https://bootcamp-api.codeit.kr/api/users/1/links`);
+  const response = await query.json();
+  return response;
+}
