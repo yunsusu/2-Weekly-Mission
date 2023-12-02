@@ -72,7 +72,7 @@ header {
     width: 100%;
 }
 
-.header_inner a:last-child {
+.header_inner a.login {
     text-align: center;
     line-height: 5.4rem;
     width: 12.8rem;

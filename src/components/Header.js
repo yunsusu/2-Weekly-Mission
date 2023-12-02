@@ -14,11 +14,15 @@ function Header({ userData, userProfile }) {
 
         {userData ? (
           <p className="userdata">
-            <img src={`${userProfile.img}`} alt="userimg" />
+            <Link to="/folder">
+              <img src={`${userProfile.img}`} alt="userimg" />
+            </Link>
             {`${userProfile.email}`}
           </p>
         ) : (
-          <Link to="/signin">로그인</Link>
+          <Link to="/signin" className="login">
+            로그인
+          </Link>
         )}
       </div>
     </header>
