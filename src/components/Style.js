@@ -1,7 +1,6 @@
 import styled from "styled-components";
 export const Main = styled.div`
   padding: 9.4rem 3.2rem 6.24rem 3.2rem;
-  /* margin-top: 9.4rem; */
   text-align: center;
   background-color: var(--gray5);
 `;
@@ -90,6 +89,7 @@ export const noData = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 1.6rem;
+  margin: 0 auto;
 `;
 export const star = styled.img`
   width: 3.4rem;
