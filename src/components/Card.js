@@ -1,75 +1,72 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import * as F from "./Style";
 import nullImg from "../img/nullimg.png";
 import logo from "../img/logo.png";
+import kebab from "../img/kebab.png";
+import star from "../img/star.png";
+import { useFormatDate } from "../utils/useformatDate";
+import { useAgo } from "../utils/useAgo";
+import { Link } from "react-router-dom";
 
 function Card({ data }) {
-  const formattedDate = formatDateString(data.createdAt);
-  const [imgNull, setImgNull] = useState("");
-  const min = calculateElapsedTime(data.createdAt);
-  const [ago, setAgo] = useState("");
+  const {
+    created_at,
+    createdAt,
+    description,
+    image_source,
+    title,
+    url,
+    imageSource,
+    id,
+  } = data;
+  const time = createdAt || created_at;
+  const formattedDate = useFormatDate(time);
+  const min = calculateElapsedTime(time);
+  const ago = useAgo(min);
+  const image = imageSource || image_source;
+  const [kebabBool, setKebabBool] = useState(false);
 
-  useEffect(() => {
-    if (data.imageSource === undefined) {
-      setImgNull(nullImg);
-    } else {
-      setImgNull(data.imageSource);
-    } // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [imgNull]);
-
-  useEffect(() => {
-    if (min < 2) {
-      setAgo("1 minute ago");
-    } else if (min <= 59) {
-      setAgo(`${min} minutes ago`);
-    } else if (min / 60 <= 23) {
-      setAgo(`${Math.ceil(min / 60)} hour ago`);
-    } else if (min / 60 >= 24 && min / 60 / 24 < 2) {
-      setAgo(`1 day ago`);
-    } else if (min / 60 / 24 >= 2 && min / 60 / 24 <= 30) {
-      setAgo(`${Math.ceil(min / 60 / 24)} days ago`);
-    } else if (min / 60 / 24 > 30 && min / 60 / 24 <= 60) {
-      setAgo(`1 month ago`);
-    } else if (min / 60 / 24 > 60 && min / 60 / 24 <= 365) {
-      setAgo(`${Math.ceil(min / 60 / 24 / 30)} months ago`);
-    } else if (min / 60 / 24 > 365 && min / 60 / 24 <= 730) {
-      setAgo(`1 year ago`);
-    } else {
-      setAgo(`${Math.ceil(min / 60 / 24 / 365)} years ago`);
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const handleKebabClick = () => {
+    setKebabBool((prevBool) => !prevBool);
+  };
 
   return (
-    <div className={`card card${data.id}`}>
-      <a href={`${data.url}`} target="_blank" rel="noopener noreferrer">
+    <div className={`card card${id}`}>
+      <Link to={`${url}`} target="_blank" rel="noopener noreferrer">
         <div className="cardImgWrap">
-          {data.imageSource === undefined ? (
+          {image_source == undefined && imageSource == null ? (
             <>
-              <img src={`${imgNull}`} alt={`${data.title}`} />
+              <img src={nullImg} alt={`${title}`} />
               <img src={logo} alt="logo" className="nullImg" />
             </>
           ) : (
-            <img src={`${imgNull}`} alt={`${data.title}`} />
+            <img src={`${image}`} alt={`${title}`} />
           )}
         </div>
-        <div className="cardText">
-          <p className="ago">{`${ago}`}</p>
-          <p className="des">{`${data.description}`}</p>
-          <p className="cardDate">{`${formattedDate}`}</p>
-        </div>
-      </a>
+      </Link>
+      <F.star src={star} />
+      <div className="cardText">
+        <F.kebabAgo>
+          <p className="ago">{`${ago}`}</p>{" "}
+          <F.kebab onClick={handleKebabClick}>
+            <img src={kebab} />
+          </F.kebab>
+          {kebabBool ? (
+            <F.kebabSelect>
+              <F.kebabSelectList>삭제하기</F.kebabSelectList>
+              <F.kebabSelectList>폴더에 추가</F.kebabSelectList>
+            </F.kebabSelect>
+          ) : (
+            <></>
+          )}
+        </F.kebabAgo>
+        <p className="des">{`${description}`}</p>
+        <p className="cardDate">{`${formattedDate}`}</p>
+      </div>
     </div>
   );
 }
-function formatDateString(dateString) {
-  const date = new Date(dateString);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
 
-  return `${year}-${month}-${day}`;
-}
 function calculateElapsedTime(dateString) {
   const currentDate = new Date();
   const targetDate = new Date(dateString);
@@ -79,4 +76,5 @@ function calculateElapsedTime(dateString) {
 
   return elapsedMinutes;
 }
+
 export default Card;
