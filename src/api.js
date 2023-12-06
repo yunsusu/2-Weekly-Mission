@@ -1,22 +1,25 @@
+const BASE_URL = "https://bootcamp-api.codeit.kr/api";
+
+async function fetcher(url) {
+  const response = await fetch(`${BASE_URL}${url}`);
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  return response.json();
+}
+
 export async function UserApi() {
-  const query = await fetch("https://bootcamp-api.codeit.kr/api/users/1");
-  const response = await query.json();
-  return response;
+  return fetcher("/users/1");
 }
+
 export function getFolders() {
-  return fetch("https://bootcamp-api.codeit.kr/api/sample/folder").then((res) =>
-    res.json()
-  );
+  return fetcher("/sample/folder");
 }
+
 export async function folderData() {
-  const query = await fetch(
-    "https://bootcamp-api.codeit.kr/api/users/1/folders"
-  );
-  const response = await query.json();
-  return response;
+  return fetcher("/users/1/folders");
 }
+
 export async function foldLinks() {
-  const query = await fetch(`https://bootcamp-api.codeit.kr/api/users/1/links`);
-  const response = await query.json();
-  return response;
+  return fetcher("/users/1/links");
 }

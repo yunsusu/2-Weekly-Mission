@@ -1,8 +1,8 @@
-import "./Style.css";
+import "./style.css";
 import logoImg from "../img/logo.png";
 import { Link } from "react-router-dom";
 
-function Header({ userData, userProfile }) {
+function Header({ userData }) {
   return (
     <header>
       <div className="header_inner">
@@ -15,9 +15,9 @@ function Header({ userData, userProfile }) {
         {userData ? (
           <p className="userdata">
             <Link to="/folder">
-              <img src={`${userProfile.img}`} alt="userimg" />
+              <img src={userData.image_source} alt="userimg" />
             </Link>
-            {`${userProfile.email}`}
+            {userData.email}
           </p>
         ) : (
           <Link to="/signin" className="login">

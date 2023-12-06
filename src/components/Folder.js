@@ -9,16 +9,16 @@ import { useState } from "react";
 import { folderData, foldLinks } from "../api";
 import Choice from "./Choice";
 import Card from "./Card";
-import { useFoldLink, useLink, useUser } from "../hooks/useFolder";
+import { useGetFolderLink, useGetLink, useGetUser } from "../hooks/useFolder";
 
 function Folder() {
   const [foldData, setFoldeData] = useState([]);
   const [selectList, setSelectList] = useState(0);
-  const [foldLinkMock, setFoldLinkMock] = useState([]);
+  const [folderLinkMock, setFoldLinkMock] = useState([]);
   const [foldLink, setFoldLink] = useState([]);
   const [foldLinkTitle, setFoldLinkTitle] = useState("전체");
 
-  const folderUser = async () => {
+  const folderGetUser = async () => {
     try {
       const result = await folderData();
       setFoldeData(result.data);
@@ -27,7 +27,7 @@ function Folder() {
     }
   };
 
-  const foldLin = async () => {
+  const folderGetLink = async () => {
     try {
       const result = await foldLinks();
       setFoldLinkMock(result.data);
@@ -49,13 +49,13 @@ function Folder() {
 
 `;
 
-  useFoldLink(selectList, foldLinkMock, setFoldLink);
-  useLink(foldLin);
-  useUser(folderUser);
+  useGetFolderLink(selectList, folderLinkMock, setFoldLink);
+  useGetLink(folderGetLink);
+  useGetUser(folderGetUser);
 
+  <GlobalStyle />;
   return (
     <>
-      <GlobalStyle></GlobalStyle>
       <F.Main>
         <F.addLink>
           <img src={linkImg} alt="linkimg" />
@@ -67,9 +67,7 @@ function Folder() {
       <Choice data={foldData} selectList={selectList} clickList={clickList} />
       <F.cardTitle>
         <F.cardTitleH2>{foldLinkTitle}</F.cardTitleH2>
-        {foldLinkTitle === "전체" ? (
-          <></>
-        ) : (
+        {foldLinkTitle !== "전체" ? (
           <F.cardTitleBtnBox>
             <F.cardTitleBtn>
               <img src={shareImg} alt={shareImg} />
@@ -84,7 +82,7 @@ function Folder() {
               <p>삭제</p>
             </F.cardTitleBtn>
           </F.cardTitleBtnBox>
-        )}
+        ) : null}
       </F.cardTitle>
       {foldLink.length > 0 ? (
         <div className="cardBox">

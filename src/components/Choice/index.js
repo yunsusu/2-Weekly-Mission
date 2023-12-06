@@ -1,4 +1,4 @@
-import * as F from "./Style";
+import * as F from "../Style";
 
 function Choice({ data, clickList, selectList }) {
   return (
@@ -17,6 +17,7 @@ function Choice({ data, clickList, selectList }) {
       {data &&
         data.map((item) => (
           <F.choiceBtn
+            key={item.id}
             className={selectList}
             value={item.id}
             title={item.name}

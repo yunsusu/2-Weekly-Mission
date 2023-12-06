@@ -1,23 +1,23 @@
 import { useEffect } from "react";
 
-export const useFoldLink = (selectList, foldLinkMock, setFoldLink) => {
+export const useGetFolderLink = (selectList, folderLinkMock, setFolderLink) => {
   useEffect(() => {
-    setFoldLink((prev) => {
+    setFolderLink((prev) => {
       if (selectList === 0) {
-        return foldLinkMock;
+        return folderLinkMock;
       } else {
-        return foldLinkMock.filter((item) => item.folder_id === selectList);
+        return folderLinkMock.filter((item) => item.folder_id === selectList);
       }
     });
-  }, [selectList, foldLinkMock]);
+  }, [selectList, folderLinkMock]);
 };
-export const useLink = (foldLin) => {
+export const useGetLink = (folderGetLink) => {
   useEffect(() => {
-    foldLin();
+    folderGetLink();
   }, []);
 };
-export const useUser = (folderUser) => {
+export const useGetUser = (folderGetUser) => {
   useEffect(() => {
-    folderUser();
+    folderGetUser();
   }, []);
 };
