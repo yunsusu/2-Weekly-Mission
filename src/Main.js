@@ -1,19 +1,17 @@
-import App from "./components/App";
-import Folder from "./components/Folder";
+import Shared from "./pages/Shared";
+import Folder from "./pages/Folder";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { getFolders, UserApi as userApi } from "./api";
 import { useEffect, useState } from "react";
+import Global from "./GlobalStyle";
 
 function Main() {
   const [userStatus, setUserStatus] = useState(false);
   const [userData, setUserData] = useState(null);
   const [cardData, setCardData] = useState([]);
-  // const [userProfile, setUserProfile] = useState({
-  //   img: "",
-  //   email: "",
-  // });
+
   const [userFolder, setUserFolder] = useState({
     name: "",
     userName: "",
@@ -50,12 +48,13 @@ function Main() {
   }, []);
   return (
     <BrowserRouter>
+      <Global />
       <Header userData={userData} />
       <Routes>
         <Route
           path="/shared"
           element={
-            <App
+            <Shared
               userFolder={userFolder}
               userStatus={userStatus}
               cardData={cardData}

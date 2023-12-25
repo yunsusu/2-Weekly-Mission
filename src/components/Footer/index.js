@@ -1,17 +1,20 @@
+import { Link } from "react-router-dom";
+import * as Foot from "./styled";
+
 function Footer() {
   return (
-    <footer>
-      <div className="foot_inner">
-        <p className="codeit_pc">©codeit - 2023</p>
+    <Foot.Footer>
+      <Foot.FootInner>
+        <Foot.CodeitPc>©codeit - 2023</Foot.CodeitPc>
 
-        <div className="foot_mid">
-          <a href="/privacy">Privacy Policy</a>
+        <Foot.FootMid>
+          <Link to="/privacy">Privacy Policy</Link>
 
-          <a href="/faq">FAQ</a>
-        </div>
+          <Link to="/faq">FAQ</Link>
+        </Foot.FootMid>
 
-        <div className="foot_link">
-          <a href="/facebook" target="_blank">
+        <Foot.FootLink>
+          <Link to="/facebook" target="_blank">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="2rem"
@@ -26,8 +29,8 @@ function Footer() {
                 fill="white"
               />
             </svg>
-          </a>
-          <a href="/twitter" target="_blank">
+          </Link>
+          <Link to="/twitter" target="_blank">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="2rem"
@@ -40,8 +43,8 @@ function Footer() {
                 fill="white"
               />
             </svg>
-          </a>
-          <a href="/youtube" target="_blank">
+          </Link>
+          <Link to="/youtube" target="_blank">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="2rem"
@@ -61,8 +64,8 @@ function Footer() {
                 </clipPath>
               </defs>
             </svg>
-          </a>
-          <a href="/instagram" target="_blank">
+          </Link>
+          <Link to="/instagram" target="_blank">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="2rem"
@@ -75,11 +78,11 @@ function Footer() {
                 fill="white"
               />
             </svg>
-          </a>
-        </div>
-      </div>
-      <p className="codeit_mobile">©codeit - 2023</p>
-    </footer>
+          </Link>
+        </Foot.FootLink>
+      </Foot.FootInner>
+      <Foot.CodeitMobile>©codeit - 2023</Foot.CodeitMobile>
+    </Foot.Footer>
   );
 }
 

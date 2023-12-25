@@ -1,4 +1,4 @@
-import * as F from "../Style";
+import * as F from "./styled";
 
 function Choice({ data, clickList, selectList }) {
   return (

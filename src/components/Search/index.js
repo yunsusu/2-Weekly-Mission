@@ -1,8 +1,10 @@
+import * as S from "./styled";
+
 function Search() {
   return (
-    <form className="search">
-      <div className="searchInner">
-        <button>
+    <S.search>
+      <S.searchInner>
+        <S.button>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -25,10 +27,10 @@ function Search() {
               strokeLinejoin="round"
             />
           </svg>
-        </button>
-        <input type="text" placeholder="링크를 검색해 보세요."></input>
-      </div>
-    </form>
+        </S.button>
+        <S.input type="text" placeholder="링크를 검색해 보세요." />
+      </S.searchInner>
+    </S.search>
   );
 }
 export default Search;

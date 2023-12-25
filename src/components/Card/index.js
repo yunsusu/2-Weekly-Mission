@@ -1,5 +1,5 @@
 import { useState } from "react";
-import * as F from "./styled";
+import * as S from "./styled";
 import nullImg from "../../img/nullimg.png";
 import logo from "../../img/logo.png";
 import kebab from "../../img/kebab.png";
@@ -8,7 +8,7 @@ import { formatDateYMD } from "../../utils/formatDateYMD";
 import { sortAgo } from "../../utils/sortAgo";
 import { Link } from "react-router-dom";
 
-function Card({ data }) {
+function Card({ data, modalOpen }) {
   const {
     created_at,
     createdAt,
@@ -17,7 +17,7 @@ function Card({ data }) {
     title,
     url,
     imageSource,
-    id,
+    // id,
   } = data;
   const time = createdAt || created_at;
   const formattedDate = formatDateYMD(time);
@@ -32,39 +32,41 @@ function Card({ data }) {
   };
 
   return (
-    <F.Card>
+    <S.Card>
       <Link to={`${url}`} target="_blank" rel="noopener noreferrer">
-        <div className="cardImgWrap">
+        <S.cardImgWrap>
           {!image ? (
             <>
-              <img src={nullImg} alt={`${title}`} />
-              <img src={logo} alt="logo" className="nullImg" />
+              <S.img src={nullImg} alt={`${title}`} />
+              <S.nullImg src={logo} alt="logo" />
             </>
           ) : (
-            <img src={`${image}`} alt={`${title}`} />
+            <S.img src={`${image}`} alt={`${title}`} />
           )}
-        </div>
-        <F.star src={star} />
-        <div className="cardText">
-          <F.kebabAgo>
-            <p className="ago">{`${ago}`}</p>{" "}
-            <F.kebab onClick={handleKebabClick}>
+        </S.cardImgWrap>
+        <S.star src={star} />
+        <S.cardText>
+          <S.kebabAgo>
+            <S.ago>{`${ago}`}</S.ago>
+            <S.kebab onClick={handleKebabClick}>
               <img src={kebab} alt={kebab} />
-            </F.kebab>
+            </S.kebab>
             {kebabOpen ? (
-              <F.kebabSelect>
-                <F.kebabSelectList>삭제하기</F.kebabSelectList>
-                <F.kebabSelectList>폴더에 추가</F.kebabSelectList>
-              </F.kebabSelect>
-            ) : (
-              <></>
-            )}
-          </F.kebabAgo>
-          <p className="des">{`${description}`}</p>
-          <p className="cardDate">{`${formattedDate}`}</p>
-        </div>
+              <S.kebabSelect>
+                <S.kebabSelectList onClick={modalOpen} data-title="링크 삭제" data-stat={url}>
+                  삭제하기
+                </S.kebabSelectList>
+                <S.kebabSelectList onClick={modalOpen} data-title="폴더에 추가" data-stat="링크 주소">
+                  폴더에 추가
+                </S.kebabSelectList>
+              </S.kebabSelect>
+            ) : null}
+          </S.kebabAgo>
+          <S.des>{`${description}`}</S.des>
+          <S.cardDate>{`${formattedDate}`}</S.cardDate>
+        </S.cardText>
       </Link>
-    </F.Card>
+    </S.Card>
   );
 }
 
