@@ -2,7 +2,20 @@ import * as H from "./styled";
 import logoImg from "../../img/logo.png";
 import { Link } from "react-router-dom";
 
-function Header({ userData }) {
+interface UserData {
+  auth_id: string;
+  created_at: string;
+  email: string;
+  id: number;
+  image_source: string;
+  name: string;
+}
+
+interface THeader {
+  userData: UserData | null;
+}
+
+function Header({ userData }: THeader) {
   return (
     <H.header className="Header">
       <H.header_inner>

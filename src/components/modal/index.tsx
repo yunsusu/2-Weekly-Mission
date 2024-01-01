@@ -6,7 +6,27 @@ import share from "../../img/sharemodal.png";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 
-function Modal({ setModal, modalValue, modalSub, foldData }) {
+interface Link {
+  count: number;
+}
+
+interface FoldData {
+  created_at: string;
+  favorite: boolean;
+  id: number;
+  link: Link;
+  name: string;
+  user_id: number;
+}
+
+interface TModal {
+  setModal: any;
+  modalValue: string;
+  modalSub: string;
+  foldData: FoldData[];
+}
+
+function Modal({ setModal, modalValue, modalSub, foldData }: TModal) {
   const [addBoxToggle, setAddBoxToggle] = useState(0);
   const modalClose = () => {
     setModal(false);
@@ -15,7 +35,7 @@ function Modal({ setModal, modalValue, modalSub, foldData }) {
   const location = useLocation();
   const baseUrl = window.location.host;
 
-  const copy = async (text) => {
+  const copy = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
       alert("클립보드에 링크가 복사되었어요.");
@@ -23,7 +43,7 @@ function Modal({ setModal, modalValue, modalSub, foldData }) {
       console.log(err);
     }
   };
-  const toggleAddBox = (e) => {
+  const toggleAddBox = (e: React.MouseEvent<HTMLDivElement>) => {
     const addBoxNum = e.currentTarget.getAttribute("data-num");
     setAddBoxToggle(Number(addBoxNum));
   };

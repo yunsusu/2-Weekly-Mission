@@ -28,3 +28,10 @@ export const input = styled.input`
     margin-left: 10px;
   }
 `;
+export const searchClose = styled.div`
+  width: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+`;

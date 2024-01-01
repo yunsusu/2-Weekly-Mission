@@ -26,7 +26,7 @@ export const kebabSelect = styled.div`
   box-shadow: 0px 2px 8px 0px rgba(51, 50, 54, 0.1);
   /* display: none; */
 `;
-export const kebabSelectList = styled.div`
+export const kebabSelectList = styled.button`
   width: 100%;
   height: 50%;
   color: var(--gray-light-gray-100, #333236);
