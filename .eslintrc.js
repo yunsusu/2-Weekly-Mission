@@ -7,12 +7,21 @@ module.exports = {
   extends: ["eslint:recommended", "plugin:react/recommended"],
   overrides: [
     {
-      env: {
-        node: true,
-      },
-      files: [".eslintrc.{js,cjs}"],
+      files: ["*.ts", "*.tsx"],
+      parser: "@typescript-eslint/parser",
       parserOptions: {
-        sourceType: "script",
+        ecmaVersion: 2021,
+        sourceType: "module",
+        project: "./tsconfig.json",
+      },
+      extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:react/recommended"],
+      plugins: ["@typescript-eslint", "react", "react-hooks"],
+      rules: {
+        "react/react-in-jsx-scope": 0,
+        "no-unused-vars": "warn",
+        "react/prop-types": "off",
+        "react-hooks/exhaustive-deps": "warn",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
       },
     },
   ],

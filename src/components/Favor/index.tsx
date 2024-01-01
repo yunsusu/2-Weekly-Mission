@@ -1,6 +1,16 @@
 import * as S from "./styled";
 
-function Favor({ user }) {
+interface User {
+  img: string;
+  name: string;
+  userName: string;
+}
+
+interface TFavor {
+  user: User;
+}
+
+function Favor({ user }: TFavor) {
   return (
     <S.shared>
       <S.userimg src={user.img} alt="userimg" />

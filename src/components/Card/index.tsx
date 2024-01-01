@@ -8,7 +8,23 @@ import { formatDateYMD } from "../../utils/formatDateYMD";
 import { sortAgo } from "../../utils/sortAgo";
 import { Link } from "react-router-dom";
 
-function Card({ data, modalOpen }) {
+interface CardData {
+  created_at?: string;
+  createdAt?: string;
+  description: string;
+  image_source?: string;
+  imageSource?: string;
+  title: string;
+  url: string;
+  // id: number;
+}
+
+interface CardProps {
+  data: CardData;
+  modalOpen: (e: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+function Card({ data, modalOpen }: CardProps) {
   const {
     created_at,
     createdAt,
@@ -21,12 +37,12 @@ function Card({ data, modalOpen }) {
   } = data;
   const time = createdAt || created_at;
   const formattedDate = formatDateYMD(time);
-  const min = calculateElapsedTime(time);
+  const min = calculateElapsedTime(time || null);
   const ago = sortAgo(min);
   const image = imageSource || image_source;
   const [kebabOpen, setKebabOpen] = useState(false);
 
-  const handleKebabClick = (e) => {
+  const handleKebabClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setKebabOpen((prevBool) => !prevBool);
   };
@@ -70,11 +86,14 @@ function Card({ data, modalOpen }) {
   );
 }
 
-function calculateElapsedTime(dateString) {
+function calculateElapsedTime(dateString: string | null): number {
+  if (dateString === null) {
+    return 0;
+  }
   const currentDate = new Date();
   const targetDate = new Date(dateString);
 
-  const timeDifference = currentDate - targetDate;
+  const timeDifference = currentDate.getTime() - targetDate.getTime();
   const elapsedMinutes = Math.floor(timeDifference / (1000 * 60));
 
   return elapsedMinutes;

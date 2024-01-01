@@ -4,6 +4,18 @@ export const Main = styled.div`
   text-align: center;
   background-color: var(--gray5);
 `;
+export const BotMain = styled.div`
+  width: 100%;
+  padding: 2.4rem 3.2rem;
+  text-align: center;
+  background-color: var(--gray5);
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+  @media all and (max-width: 767px) {
+    display: none;
+  }
+`;
 export const addLink = styled.form`
   max-width: 80rem;
   width: 100%;
@@ -28,10 +40,7 @@ export const addButton = styled.button`
   font-size: 1.4rem;
   /* padding: 1rem 1.6rem; */
   border-radius: 0.8rem;
-  background: var(
-    --gra-purpleblue-to-skyblue,
-    linear-gradient(91deg, #6d6afe 0.12%, #6ae3fe 101.84%)
-  );
+  background: var(--gra-purpleblue-to-skyblue, linear-gradient(91deg, #6d6afe 0.12%, #6ae3fe 101.84%));
   color: #fff;
   cursor: pointer;
 `;

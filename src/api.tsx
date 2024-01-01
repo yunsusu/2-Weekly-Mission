@@ -1,6 +1,6 @@
 const BASE_URL = "https://bootcamp-api.codeit.kr/api";
 
-async function fetcher(url) {
+async function fetcher(url: string) {
   const response = await fetch(`${BASE_URL}${url}`);
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
