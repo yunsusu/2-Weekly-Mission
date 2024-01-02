@@ -10,8 +10,8 @@ import { folderData, foldLinks } from "../../api";
 import Choice from "../../components/Choice";
 import Card from "../../components/Card";
 import Modal from "../../components/modal";
-import { useTargetRef } from "../../hooks/useTargetRef";
-import { useFootRef } from "../../hooks/useFootRef";
+import { useTargetRef, useFootRef } from "../../hooks/useTargetRef";
+// import { useFootRef } from "../../hooks/useFootRef";
 
 import { useGetFolderLink, useGetLink, useGetUser } from "../../hooks/useFolder";
 
@@ -138,7 +138,7 @@ function Folder() {
         <F.noData>저장된 링크가 없습니다.</F.noData>
       )}
       <F.folderFAB>폴더 추가 +</F.folderFAB>
-      <div ref={footTargetRef}></div>
+      <F.footRef ref={footTargetRef}></F.footRef>
     </div>
   );
 }

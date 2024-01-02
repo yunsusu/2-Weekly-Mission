@@ -112,3 +112,7 @@ export const cardBox = styled.div`
     grid-template-columns: repeat(1, 1fr);
   }
 `;
+export const footRef = styled.div`
+  position: absolute;
+  bottom: 0;
+`;
