@@ -4,6 +4,18 @@ export const Main = styled.div`
   text-align: center;
   background-color: var(--gray5);
 `;
+export const BotMain = styled.div`
+  width: 100%;
+  padding: 2.4rem 3.2rem;
+  text-align: center;
+  background-color: var(--gray5);
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+  @media all and (max-width: 767px) {
+    display: none;
+  }
+`;
 export const addLink = styled.form`
   max-width: 80rem;
   width: 100%;
@@ -28,33 +40,11 @@ export const addButton = styled.button`
   font-size: 1.4rem;
   /* padding: 1rem 1.6rem; */
   border-radius: 0.8rem;
-  background: var(
-    --gra-purpleblue-to-skyblue,
-    linear-gradient(91deg, #6d6afe 0.12%, #6ae3fe 101.84%)
-  );
+  background: var(--gra-purpleblue-to-skyblue, linear-gradient(91deg, #6d6afe 0.12%, #6ae3fe 101.84%));
   color: #fff;
   cursor: pointer;
 `;
-export const choiceBtn = styled.button`
-  font-size: 1.6rem;
-  padding: 0.8rem 1.2rem;
-  border-radius: 5px;
-  border: 1px solid var(--linkbrary-primary-color, #6d6afe);
-  background: #fff;
-  cursor: pointer;
-  /* &:hover {
-    background-color: var(--blue);
-    color: #fff;
-  } */
-`;
-export const choiceBtnWrap = styled.div`
-  display: flex;
-  gap: 0.8rem;
-  max-width: 106rem;
-  margin: 0 auto;
-  padding: 0 3.2rem;
-  flex-wrap: wrap;
-`;
+
 export const cardTitle = styled.div`
   max-width: 106rem;
   width: 100%;
@@ -91,46 +81,6 @@ export const noData = styled.div`
   font-size: 1.6rem;
   margin: 0 auto;
 `;
-export const star = styled.img`
-  width: 3.4rem;
-  height: 3.4rem;
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-`;
-export const kebabAgo = styled.div`
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-`;
-export const kebab = styled.button`
-  cursor: pointer;
-  background-color: #fff;
-`;
-export const kebabSelect = styled.div`
-  width: 10rem;
-  height: 6.4rem;
-  position: absolute;
-  right: 0;
-  top: 3rem;
-  background: var(--gray-light-gray-00, #fff);
-  box-shadow: 0px 2px 8px 0px rgba(51, 50, 54, 0.1);
-  /* display: none; */
-`;
-export const kebabSelectList = styled.div`
-  width: 100%;
-  height: 50%;
-  border: 1px solid #fff;
-  color: var(--gray-light-gray-100, #333236);
-  font-size: 1.4rem;
-  line-height: 3.2rem;
-  text-align: center;
-
-  &:last-child {
-    background: #e7effb;
-    color: #6d6afe;
-  }
-`;
 export const folderFAB = styled.button`
   display: none;
   padding: 0.8rem 2.4rem;
@@ -147,4 +97,22 @@ export const folderFAB = styled.button`
   @media all and (max-width: 767px) {
     display: block;
   }
+`;
+export const cardBox = styled.div`
+  max-width: 106rem;
+  margin: 0 auto 10rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 0 3.2rem;
+  @media all and (max-width: 1124px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media all and (max-width: 767px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+`;
+export const footRef = styled.div`
+  position: absolute;
+  bottom: 0;
 `;

@@ -1,4 +1,4 @@
-export function useAgo(min) {
+export function sortAgo(min) {
   if (min < 2) {
     return "1 minute ago";
   } else if (min <= 59) {

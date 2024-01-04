@@ -1,6 +1,23 @@
-import * as F from "./Style";
+import * as F from "./styled";
 
-function Choice({ data, clickList, selectList }) {
+interface Data {
+  created_at: string;
+  favorite: boolean;
+  id: number;
+  link: { string: number };
+  name: string;
+  user_id: number;
+}
+
+type FolderData = Data[];
+
+interface TChoice {
+  data: FolderData;
+  clickList: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  selectList: number;
+}
+
+function Choice({ data, clickList, selectList }: TChoice) {
   return (
     <F.choiceBtnWrap>
       <F.choiceBtn
@@ -17,7 +34,8 @@ function Choice({ data, clickList, selectList }) {
       {data &&
         data.map((item) => (
           <F.choiceBtn
-            className={selectList}
+            key={item.id}
+            // className={selectList}
             value={item.id}
             title={item.name}
             onClick={clickList}
