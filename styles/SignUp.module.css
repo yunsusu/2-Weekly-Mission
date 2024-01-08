@@ -1,0 +1,127 @@
+.sign {
+    background-color: var(--gray5);
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    left: 0;
+}
+
+.login {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--black);
+}
+
+.login h1 {
+    text-align: center;
+}
+
+.login h1 a img {
+    width: 210px;
+    height: 38px;
+    margin-bottom: 16px;
+}
+
+.login p {
+    color: var(--black);
+    font-size: 1.6rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+.login p a {
+    position: relative;
+    top: -5px;
+    color: var(--blue);
+    text-decoration: underline;
+}
+
+.login form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login .signTop {
+    width: 100%;
+}
+
+.login .signTop form .write {
+    margin: 30px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.login .signTop form .write label {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.login .signTop form .write input {
+    width: 100%;
+    padding: 18px 15px;
+    border-radius: 8px;
+    border: 1px solid var(--gray3);
+}
+
+.login .signTop form .write input:focus {
+    border: 1px solid var(--blue);
+}
+
+.login .signTop .pwd {
+    position: relative;
+}
+
+.login .signTop .pwd .eye {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.login .signTop form #submit {
+    padding: 16px 20px;
+    border-radius: 8px;
+    background: linear-gradient(91deg, #6D6AFE 0.12%, #6AE3FE 101.84%);
+    color: var(--white);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.login .signBottom {
+    width: 100%;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+    border-radius: 8px;
+    border: 1px solid var(--gray3);
+    background: var(--gray4);
+}
+
+.login .signBottom p {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--black);
+}
+
+.login .signBottom .social {
+    display: flex;
+    gap: 16px;
+}
+
+.login .signBottom .social img {
+    width: 4.2rem;
+    height: 4.2rem;
+}
