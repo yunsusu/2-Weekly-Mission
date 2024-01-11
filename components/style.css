@@ -1,0 +1,431 @@
+.search {
+    max-width: 106rem;
+    padding: 0 3.2rem;
+    text-align: center;
+    margin: 2rem auto;
+}
+
+
+/* main */
+main {
+    background-color: var(--gray5);
+    overflow: hidden;
+    padding: 7rem 0 0;
+}
+
+.main_inner {
+    position: relative;
+    /* top: 7.0rem; */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    text-align: center;
+}
+
+
+
+.main_inner h2 {
+    font-size: 6.4rem;
+    font-weight: 700;
+    /* line-height: 8.0rem; */
+}
+
+.main_inner h2 span {
+    background: linear-gradient(91deg, #6D6AFE 17.28%, #FF9F9F 74.98%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.main_inner a {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--gray5);
+    width: 31.0rem;
+    margin: 4.0rem auto 0;
+    line-height: 2.2rem;
+    padding: 1.6rem 2.0rem;
+    border-radius: 0.8rem;
+    background: linear-gradient(91deg, #6D6AFE 0.12%, #6AE3FE 101.84%);
+}
+
+.main_inner .img {
+    margin-top: 5.0rem;
+}
+
+.main_inner .img img {
+    width: 111.8rem;
+    vertical-align: bottom;
+}
+
+/* main sec */
+
+
+
+.sec {
+    /* max-width: 1000rem; */
+    margin: 12.0rem auto 5.0rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 15.7rem;
+}
+
+.sec .sec_text {
+    width: 29.1rem;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    flex-direction: column;
+}
+
+#sec1 .sec_text h2 {
+    font-size: 4.8rem;
+    font-weight: 700;
+}
+
+#sec1 .sec_text h2 span {
+    background: linear-gradient(96deg, #FE8A8A 1.72%, #A4CEFF 74.97%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#sec1 .sec_text p {
+    color: #6B6B6B;
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+}
+
+.sec .sec_img img {
+    width: 55.0rem;
+}
+
+
+
+#sec2 .sec_text h2 {
+    font-size: 4.8rem;
+    font-weight: 700;
+}
+
+#sec2 .sec_text h2 span {
+    background: linear-gradient(277deg, #6FBAFF 59.22%, #FFD88B 93.66%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+}
+
+#sec2 .sec_text p {
+    color: #6B6B6B;
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 150%;
+}
+
+
+#sec3 .sec_text h2 {
+    font-size: 4.8rem;
+    font-weight: 700;
+}
+
+#sec3 .sec_text h2 span {
+    background: linear-gradient(99deg, #6D7CCD 19.76%, rgba(82, 136, 133, 0.22) 52.69%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* font-size: 48em; */
+    font-weight: 700;
+}
+
+#sec3 .sec_text p {
+    color: #6B6B6B;
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 150%;
+}
+
+
+#sec4 .sec_text h2 {
+    font-size: 4.8rem;
+    font-weight: 700;
+}
+
+#sec4 .sec_text h2 span {
+    background: linear-gradient(99deg, #6D7CCD 19.76%, rgba(82, 136, 133, 0.22) 52.69%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* font-size: 48em; */
+    font-weight: 700;
+}
+
+#sec4 .sec_text p {
+    color: #6B6B6B;
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 150%;
+}
+
+/* signin,signup page */
+#signin {
+    background-color: var(--gray5);
+}
+
+.login {
+    padding: 0 32px;
+    max-width: 46.4rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--black);
+}
+
+.login h1 {
+    text-align: center;
+}
+
+.login h1 a img {
+    width: 21.0rem;
+    height: 3.8rem;
+    margin-bottom: 1.6rem;
+}
+
+.login p {
+    color: var(--black);
+    font-size: 1.6rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+.login p a {
+    position: relative;
+    top: -0.5rem;
+    color: var(--blue);
+    text-decoration: underline;
+}
+
+.login form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login .sign_form {
+    width: 100%;
+}
+
+.login .sign_form form .write {
+    margin: 3.0rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.login .sign_form form .write .input_warning {
+    margin-top: 0.3rem;
+    text-align: left;
+    color: var(--red);
+    font-size: 1.4rem;
+}
+
+.login .sign_form form .write label {
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+.login .sign_form form .write input {
+    width: 100%;
+    padding: 1.8rem 1.5rem;
+    border-radius: 0.8rem;
+    border: 0.1rem solid var(--gray3);
+}
+
+.login .sign_form form .write input:focus {
+    border: 0.1rem solid var(--blue);
+}
+
+.login .sign_form .pwd {
+    position: relative;
+}
+
+.login .sign_form .pwd .eye {
+    position: absolute;
+    top: 1.8rem;
+    right: 1.5rem;
+    /* transform: translateY(-50%); */
+    cursor: pointer;
+    width: 1.6rem;
+}
+
+.login .sign_form .pwd .eye_none {
+    display: none;
+}
+
+.login .sign_form form #submit {
+    padding: 1.6rem 2.0rem;
+    border-radius: 0.8rem;
+    background: linear-gradient(91deg, #6D6AFE 0.12%, #6AE3FE 101.84%);
+    color: var(--white);
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.login .sign_social {
+    width: 100%;
+    padding: 1.2rem 2.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3.2rem;
+    border-radius: 0.8rem;
+    border: 0.1rem solid var(--gray3);
+    background: var(--gray4);
+}
+
+.login .sign_social p {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--black);
+}
+
+.login .sign_social .social {
+    display: flex;
+    gap: 1.6rem;
+}
+
+.login .sign_social .social img {
+    width: 4.2rem;
+    height: 4.2rem;
+}
+
+
+
+/* footer */
+footer {}
+
+footer .foot_inner {}
+
+
+footer .foot_inner .foot_link {}
+
+
+footer .codeit_mobile {}
+
+/* .pc_text {
+    display: block;
+}
+
+body .sec .mobile_text {
+    display: none;
+} */
+
+
+/* tablet */
+@media all and (max-width:1199px) {
+    .header_inner {}
+
+    .main_inner .img img {
+        width: 65.0rem;
+    }
+
+    .sec {
+        gap: 5.1rem;
+    }
+
+    .sec .sec_img img {
+        width: 38.0rem;
+    }
+
+    .pc_text {}
+
+    body .sec .mobile_text {}
+
+}
+
+@media all and (max-width:1124px) {
+    .cardBox {}
+}
+
+/* mobile */
+@media all and (max-width:767px) {
+    .header_inner a:last-child {}
+
+    main {
+        padding: 2.8rem 3.2rem 0;
+    }
+
+    .main_inner h2 {
+        font-size: 3.2rem;
+    }
+
+    .main_inner a {
+        width: 20rem;
+        margin: 2rem auto 0;
+        padding: 1rem 1.6rem;
+        font-size: 1.4rem;
+    }
+
+    .main_inner .img {
+        margin-top: 2rem;
+
+    }
+
+    .main_inner .img img {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .sec {
+        padding: 0 3.2rem;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    #sec1 .sec_text h2,
+    #sec2 .sec_text h2,
+    #sec3 .sec_text h2,
+    #sec4 .sec_text h2 {
+        font-size: 2.4rem;
+    }
+
+    .sec .sec_img img {
+        width: 100%;
+    }
+
+    .pc_text {
+        display: none;
+    }
+
+    body .sec .mobile_text {
+        display: block;
+    }
+
+    .sec .sec_text {
+        width: 100%;
+    }
+
+    footer {}
+
+
+
+    footer .codeit_mobile {
+        display: block;
+    }
+
+    .cardBox {}
+}
+
+/* ? */
+@media all and (max-width:374px) {}
