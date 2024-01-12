@@ -1,6 +1,8 @@
 import Link from "next/link";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import style from "@/styles/SignUp.module.css";
+// import axios from "axios";
+import axios from "@/lib/axios";
 
 interface SignInProps {}
 
@@ -10,6 +12,11 @@ const SignIn: React.FC<SignInProps> = () => {
   const [pwdBool, setPwdBool] = useState(false);
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
+
+  const LS = localStorage.getItem("login");
+  if (LS !== null) {
+    window.location.href = "/folder/1";
+  }
 
   const togglePwd = () => {
     setPwdBool((pre) => !pre);
@@ -35,15 +42,27 @@ const SignIn: React.FC<SignInProps> = () => {
     }
   };
 
-  const loginGo = (e: FormEvent) => {
+  const loginGo = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (checkId === "idid@naver.com" && checkPwd === "qwe123") {
-      alert("Login successful!");
-    } else {
-      alert("Incorrect email or password. Please try again.");
-    }
+    try {
+      const res = await signin();
+      console.log(res);
+      if (res.status === 200) {
+        localStorage.setItem("login", res.data.data.accessToken);
+        window.location.href = "/folder/1";
+      }
+    } catch {}
   };
+
+  async function signin() {
+    const userData = {
+      email: checkId,
+      password: checkPwd,
+    };
+    const res = await axios.post(`/sign-in`, userData);
+    return res;
+  }
 
   return (
     <div className={style.sign}>
@@ -97,12 +116,12 @@ const SignIn: React.FC<SignInProps> = () => {
         <div className={style.signBottom}>
           <p>소셜 로그인</p>
           <div className={style.social}>
-            <a href="https://www.google.com/">
+            <Link href="https://www.google.com/">
               <img src="../img/google.png" alt="" />
-            </a>
-            <a href="https://www.kakaocorp.com/page/">
+            </Link>
+            <Link href="https://www.kakaocorp.com/page/">
               <img src="../img/kakao.png" alt="" />
-            </a>
+            </Link>
           </div>
         </div>
       </div>

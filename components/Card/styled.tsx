@@ -1,11 +1,11 @@
 import styled from "styled-components";
+import Image from "next/image";
 
-export const star = styled.img`
+export const star = styled(Image)`
   width: 3.4rem;
   height: 3.4rem;
   position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
+  object-fit: cover;
 `;
 export const kebabAgo = styled.div`
   display: flex;
@@ -68,12 +68,13 @@ export const cardImgWrap = styled.div`
     transition: all 1s;
   }
 `;
-export const nullImg = styled.img`
+export const nullImg = styled(Image)`
   position: absolute;
   width: 13rem;
   opacity: 0.5;
+  object-fit: cover;
 `;
-export const img = styled.img`
+export const img = styled(Image)`
   width: 100%;
   height: 100%;
   object-fit: cover;

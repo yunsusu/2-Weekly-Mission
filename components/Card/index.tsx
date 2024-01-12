@@ -3,6 +3,7 @@ import * as S from "./styled";
 import { formatDateYMD } from "../../utils/formatDateYMD";
 import { sortAgo } from "../../utils/sortAgo";
 import Link from "next/link";
+import Image from "next/image";
 
 interface CardData {
   created_at?: string;
@@ -49,19 +50,29 @@ function Card({ data, modalOpen }: CardProps) {
         <S.cardImgWrap>
           {!image ? (
             <>
-              <S.img src="/img/nullimg.png" alt={`${title}`} />
-              <S.nullImg src="/img/logo.png" alt="logo" />
+              <div style={{ width: "100%", height: "100%", position: "relative" }}>
+                <S.img src="/img/nullimg.png" alt={`${title}`} fill />
+              </div>
+              <div style={{ width: "130px", height: "20px", position: "absolute" }}>
+                <S.nullImg src="/img/logo.png" alt="logo" fill />
+              </div>
             </>
           ) : (
-            <S.img src={`${image}`} alt={`${title}`} />
+            <div style={{ width: "100%", height: "100%", position: "relative" }}>
+              <S.img src={`${image}`} alt={`${title}`} fill />
+            </div>
           )}
         </S.cardImgWrap>
-        <S.star src="/img/star.png" />
+        <div style={{ width: "34px", height: "34px", position: "absolute", top: "15px", right: "15px" }}>
+          <S.star src="/img/star.png" fill alt="star" />
+        </div>
         <S.cardText>
           <S.kebabAgo>
             <S.ago>{`${ago}`}</S.ago>
             <S.kebab onClick={handleKebabClick}>
-              <img src="/img/kebab.png" alt="kebab" />
+              <div style={{ width: "21px", height: "17px", position: "relative" }}>
+                <Image src="/img/kebab.png" alt="kebab" fill />
+              </div>
             </S.kebab>
             {kebabOpen ? (
               <S.kebabSelect>

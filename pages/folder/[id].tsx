@@ -11,6 +11,7 @@ import { useTargetRef, useFootRef } from "../../hooks/useTargetRef";
 
 import { useGetFolderLink } from "../../hooks/useFolder";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 // interface CardData {
 //   createdAt: string;
@@ -101,7 +102,9 @@ function Folder() {
       <F.Main ref={targetRef}>
         {scrollAddUrl ? (
           <F.addLink>
-            <img src="/img/link.png" alt="linkimg" />
+            <div style={{ width: "20px", height: "20px", position: "relative" }}>
+              <Image src="/img/link.png" alt="linkimg" fill style={{ objectFit: "cover" }} />
+            </div>
             <F.addInput placeholder="링크를 추가해 보세요" />
             <F.addButton>추가하기</F.addButton>
           </F.addLink>
@@ -110,7 +113,9 @@ function Folder() {
       {!scrollAddUrl ? (
         <F.BotMain>
           <F.addLink>
-            <img src="/img/link.png" alt="linkimg" />
+            <div style={{ width: "20px", height: "20px", position: "relative" }}>
+              <Image src="/img/link.png" alt="linkimg" fill style={{ objectFit: "cover" }} />
+            </div>
             <F.addInput placeholder="링크를 추가해 보세요" />
             <F.addButton>추가하기</F.addButton>
           </F.addLink>
@@ -123,15 +128,21 @@ function Folder() {
         {foldLinkTitle !== "전체" ? (
           <F.cardTitleBtnBox>
             <F.cardTitleBtn onClick={ClickModalOpen} data-title="폴더 공유" data-stat={foldLinkTitle}>
-              <img src="/img/share.png" alt="shareImg" />
+              <div style={{ width: "20px", height: "20px", position: "relative" }}>
+                <Image src="/img/share.png" alt="shareImg" fill />
+              </div>
               <p>공유</p>
             </F.cardTitleBtn>
             <F.cardTitleBtn onClick={ClickModalOpen} data-title="폴더 이름 변경">
-              <img src="/img/pen.png" alt="renameImg" />
+              <div style={{ width: "20px", height: "20px", position: "relative" }}>
+                <Image src="/img/pen.png" alt="renameImg" fill />
+              </div>
               <p>이름 변경</p>
             </F.cardTitleBtn>
             <F.cardTitleBtn onClick={ClickModalOpen} data-title="폴더 삭제" data-stat={foldLinkTitle}>
-              <img src="/img/delete.png" alt="deleteImg" />
+              <div style={{ width: "20px", height: "20px", position: "relative" }}>
+                <Image src="/img/delete.png" alt="deleteImg" fill />
+              </div>
               <p>삭제</p>
             </F.cardTitleBtn>
           </F.cardTitleBtnBox>
