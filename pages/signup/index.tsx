@@ -1,30 +1,57 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import Link from "next/link";
 import style from "@/styles/SignUp.module.css";
+import axios from "@/lib/axios";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useToggle } from "@/hooks/useToggle";
 
-interface SignUpProps {}
+interface IFormInput {
+  email: string;
+  pwd?: string;
+  confirmPwd?: string;
+}
+interface TsignUp {
+  userData: IFormInput;
+  userMail: { email: string };
+}
 
-function SignUp({}: SignUpProps) {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
+function SignUp() {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [confirmPasswordError, setConfirmPasswordError] = useState<string | null>(null);
+  const [isPasswordMatch, setIsPasswordMatch] = useState<boolean>(false);
+  const [wrongMail, setWrongMail] = useState<boolean>(true);
+
+  const { register, handleSubmit, watch } = useForm<IFormInput>();
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    const userData = {
+      email: data.email,
+      password: data.pwd,
+    };
+    const userMail = {
+      email: data.email,
+    };
+    signUpGo(userData, userMail);
+  };
+  useEffect(() => {
+    const LS = localStorage.getItem("login");
+    if (LS !== null) {
+      window.location.href = "/folder/1";
+    }
+  }, []);
 
   const toggleShowPassword = () => {
-    setShowPassword((prevShowPassword) => !prevShowPassword);
+    useToggle(setShowConfirmPassword);
   };
-
   const toggleShowConfirmPassword = () => {
-    setShowConfirmPassword((prevShowConfirmPassword) => !prevShowConfirmPassword);
+    useToggle(setShowPassword);
   };
 
   const handleEmailChange = (e: FormEvent<HTMLInputElement>) => {
     const inputValue = e.currentTarget.value;
-    setEmail(inputValue);
+    setWrongMail(true);
 
     const isValidEmail = /\S+@\S+\.\S+/.test(inputValue);
     setEmailError(isValidEmail ? null : "올바른 이메일 형식이 아닙니다.");
@@ -35,7 +62,6 @@ function SignUp({}: SignUpProps) {
 
   const handlePasswordChange = (e: FormEvent<HTMLInputElement>) => {
     const inputValue = e.currentTarget.value;
-    setPassword(inputValue);
 
     const isPasswordValid = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/.test(inputValue);
     setPasswordError(isPasswordValid ? null : "비밀번호는 숫자와 영어가 둘 다 들어가야 하고, 8자 이상이어야 합니다.");
@@ -45,21 +71,48 @@ function SignUp({}: SignUpProps) {
   };
 
   const handleConfirmPasswordChange = (e: FormEvent<HTMLInputElement>) => {
-    const inputValue = e.currentTarget.value;
-    setConfirmPassword(inputValue);
+    const confirmPassword = e.currentTarget.value;
+    const password = watch("pwd");
 
     // 비밀번호 확인 일치 여부 검사
-    const isPasswordMatch = inputValue === password;
-    setConfirmPasswordError(isPasswordMatch ? null : "비밀번호가 일치하지 않습니다.");
+    const isMatch = confirmPassword === password;
+    setIsPasswordMatch(isMatch);
 
-    // 확인 비밀번호 일치 여부에 따라 테두리 색상 변경
-    e.currentTarget.style.borderColor = isPasswordMatch ? "#ccd5e3" : "red";
+    // 비밀번호 확인 일치 여부에 따라 에러 메시지 및 테두리 색상 설정
+    if (isMatch) {
+      setConfirmPasswordError(null);
+      e.currentTarget.style.borderColor = "#ccd5e3";
+    } else {
+      setConfirmPasswordError("비밀번호가 일치하지 않습니다.");
+      e.currentTarget.style.borderColor = "red";
+    }
   };
 
-  const handleFocusOut = (e: React.FocusEvent<HTMLInputElement>) => {
-    // Focus out 시 실행할 함수
-    console.log("Focus out event occurred for:", e.target.name);
+  const signUpGo = (userData: IFormInput, userMail: IFormInput) => {
+    if (isPasswordMatch) {
+      checkmail(userData, userMail);
+    }
   };
+
+  async function signup(userData: any) {
+    const res = await axios.post(`/sign-up`, userData);
+    return res;
+  }
+
+  async function checkmail(userData: IFormInput, userMail: IFormInput) {
+    try {
+      const res = await axios.post(`/check-email`, userMail);
+      if (res.status === 200) {
+        setWrongMail(true);
+        const signRes = await signup(userData);
+        // localStorage.setItem("login", signRes.data.data.accessToken);
+        window.location.href = "/";
+      }
+    } catch (err) {
+      console.log(err);
+      setWrongMail(false);
+    }
+  }
 
   return (
     <div className={style.sign}>
@@ -75,29 +128,29 @@ function SignUp({}: SignUpProps) {
             이미 회원이신가요? <Link href="../signin">로그인 하기</Link>
           </p>
 
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className={style.write}>
-              <label htmlFor="mail">이메일</label>
+              <label htmlFor="email">이메일</label>
               <input
+                {...register("email")}
                 type="email"
-                name="mail"
+                name="email"
                 id={style.mail}
-                value={email}
                 onChange={handleEmailChange}
-                onBlur={handleFocusOut}
+                style={{ borderColor: wrongMail ? "#ccd5e3" : "red" }}
                 required
               />
               {emailError && <p style={{ color: "red" }}>{emailError}</p>}
+              {wrongMail ? null : <p style={{ color: "red" }}>이메일이 중복되었습니다.</p>}
 
               <label htmlFor="pwd">비밀번호</label>
               <div className={style.pwd}>
                 <input
+                  {...register("pwd")}
                   type={showPassword ? "text" : "password"}
                   name="pwd"
                   id={style.pwd}
-                  value={password}
                   onChange={handlePasswordChange}
-                  onBlur={handleFocusOut}
                   required
                 />
                 <img src="../img/eye-off.png" alt="eye-off" className={style.eye} onClick={toggleShowPassword} />
@@ -107,19 +160,23 @@ function SignUp({}: SignUpProps) {
               <label htmlFor="confirmPwd">비밀번호 확인</label>
               <div className={style.pwd}>
                 <input
+                  {...register("confirmPwd")}
                   type={showConfirmPassword ? "text" : "password"}
                   name="confirmPwd"
                   id={style.confirmPwd}
-                  value={confirmPassword}
                   onChange={handleConfirmPasswordChange}
-                  onBlur={handleFocusOut}
                   required
                 />
                 <img src="../img/eye-off.png" alt="eye-off" className={style.eye} onClick={toggleShowConfirmPassword} />
               </div>
               {confirmPasswordError && <p style={{ color: "red" }}>{confirmPasswordError}</p>}
             </div>
-            <input type="submit" value="회원가입" id={style.submit} />
+            <input
+              // onClick={signUpGo}
+              type="submit"
+              value="회원가입"
+              id={style.submit}
+            />
           </form>
         </div>
 

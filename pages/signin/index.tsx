@@ -1,22 +1,36 @@
 import Link from "next/link";
 import { useState, FormEvent, useEffect } from "react";
 import style from "@/styles/SignUp.module.css";
-// import axios from "axios";
 import axios from "@/lib/axios";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 interface SignInProps {}
+interface IFormInput {
+  email: string;
+  password: string;
+}
 
 const SignIn: React.FC<SignInProps> = () => {
-  const [checkId, setCheckId] = useState<string>("");
-  const [checkPwd, setCheckPwd] = useState<string>("");
   const [pwdBool, setPwdBool] = useState(false);
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
+  const [wrong, setWrong] = useState<boolean>(false);
 
-  const LS = localStorage.getItem("login");
-  if (LS !== null) {
-    window.location.href = "/folder/1";
-  }
+  const { register, handleSubmit } = useForm<IFormInput>();
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    const userData = {
+      email: data.email,
+      password: data.password,
+    };
+    loginGo(userData);
+  };
+
+  useEffect(() => {
+    const LS = localStorage.getItem("login");
+    if (LS !== null) {
+      window.location.href = "/folder/1";
+    }
+  }, []);
 
   const togglePwd = () => {
     setPwdBool((pre) => !pre);
@@ -35,31 +49,32 @@ const SignIn: React.FC<SignInProps> = () => {
   };
 
   const handleFocusOut = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (e.target.name === "mail") {
+    if (e.target.name === "email") {
       validateEmail(e.target.value, e.currentTarget);
-    } else if (e.target.name === "pwd") {
+    } else if (e.target.name === "password") {
       validatePassword(e.target.value, e.currentTarget);
     }
   };
 
-  const loginGo = async (e: FormEvent) => {
-    e.preventDefault();
+  const loginGo = async (userData: any) => {
+    // e.preventDefault();
 
     try {
-      const res = await signin();
+      const res = await signin(userData);
       console.log(res);
       if (res.status === 200) {
         localStorage.setItem("login", res.data.data.accessToken);
         window.location.href = "/folder/1";
+      } else {
       }
-    } catch {}
+    } catch (err) {
+      setWrong(true);
+      setPasswordError("이메일 혹은 비밀번호가 잘못되었습니다");
+      setEmailError("이메일 혹은 비밀번호가 잘못되었습니다");
+    }
   };
 
-  async function signin() {
-    const userData = {
-      email: checkId,
-      password: checkPwd,
-    };
+  async function signin(userData: any) {
     const res = await axios.post(`/sign-in`, userData);
     return res;
   }
@@ -78,30 +93,30 @@ const SignIn: React.FC<SignInProps> = () => {
             회원이 아니신가요? <Link href="/signup">회원 가입하기</Link>
           </p>
 
-          <form onSubmit={loginGo}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className={style.write}>
-              <label htmlFor="mail">이메일</label>
+              <label htmlFor="email">이메일</label>
               <input
+                {...register("email")}
                 type="email"
-                name="mail"
+                name="email"
                 id={style.mail}
-                value={checkId}
-                onChange={(e) => setCheckId(e.target.value)}
                 onBlur={handleFocusOut}
+                style={{ borderColor: !wrong ? "#ccd5e3" : "red" }}
               />
 
               {/* 이메일 형식 에러 메시지 */}
               {emailError && <p style={{ color: "red" }}>{emailError}</p>}
 
-              <label htmlFor="pwd">비밀번호</label>
+              <label htmlFor="password">비밀번호</label>
               <div className={style.pwd}>
                 <input
+                  {...register("password")}
                   type={!pwdBool ? "password" : "text"}
-                  name="pwd"
+                  name="password"
                   id={style.pwd}
-                  value={checkPwd}
-                  onChange={(e) => setCheckPwd(e.target.value)}
                   onBlur={handleFocusOut}
+                  style={{ borderColor: !wrong ? "#ccd5e3" : "red" }}
                 />
                 <img src="../img/eye-off.png" alt="eye-off" className={style.eye} onClick={togglePwd} />
               </div>
@@ -109,7 +124,12 @@ const SignIn: React.FC<SignInProps> = () => {
               {/* 비밀번호 규칙 에러 메시지 */}
               {passwordError && <p style={{ color: "red" }}>{passwordError}</p>}
             </div>
-            <input type="submit" value="로그인" id={style.submit} />
+            <input
+              type="submit"
+              value="로그인"
+              id={style.submit}
+              // onClick={loginGo}
+            />
           </form>
         </div>
 
