@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-const useToggle = (initialValue: boolean) => {
+export const useToggle = (initialValue: boolean) => {
   const [value, setValue] = useState(initialValue);
 
-  const toggleValue = () => {
+  const toggleValue = (): void => {
     setValue((currentValue) => !currentValue);
   };
 

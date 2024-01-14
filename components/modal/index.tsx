@@ -1,7 +1,7 @@
-import * as M from "./styled";
 import { memo } from "react";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import * as M from "./styled";
 
 interface Link {
   count: number;
@@ -45,6 +45,19 @@ function Modal({ setModal, modalValue, modalSub, foldData }: TModal) {
     setAddBoxToggle(Number(addBoxNum));
   };
 
+  const modalSwitch = (modalValue: string) => {
+    switch (modalValue) {
+      case "폴더 공유":
+      case "폴더에 공유":
+        return null;
+      case "폴더 삭제":
+      case "링크 삭제":
+        return <M.modalDeleteButton>삭제하기</M.modalDeleteButton>;
+      default:
+        return <M.modalButton>변경하기</M.modalButton>;
+    }
+  };
+
   return (
     <>
       <M.backGround>
@@ -75,18 +88,7 @@ function Modal({ setModal, modalValue, modalSub, foldData }: TModal) {
             </>
           ) : null}
 
-          {(() => {
-            switch (modalValue) {
-              case "폴더 공유":
-              case "폴더에 공유":
-                return null;
-              case "폴더 삭제":
-              case "링크 삭제":
-                return <M.modalDeleteButton>삭제하기</M.modalDeleteButton>;
-              default:
-                return <M.modalButton>변경하기</M.modalButton>;
-            }
-          })()}
+          {modalSwitch(modalValue)}
 
           {modalValue === "폴더 공유" ? (
             <M.shareBox>

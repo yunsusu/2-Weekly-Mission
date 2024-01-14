@@ -1,17 +1,19 @@
-import * as F from "./styled";
-import { createGlobalStyle } from "styled-components";
-import Search from "../../components/Search";
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
+import { createGlobalStyle } from "styled-components";
+import Image from "next/image";
 import axios from "@/lib/axios";
+
+import Search from "../../components/Search";
 import Choice from "../../components/Choice";
 import Card from "../../components/Card";
-import Modal from "../../components/modal";
-import { useTargetRef, useFootRef } from "../../hooks/useTargetRef";
-// import { useFootRef } from "../../hooks/useFootRef";
+import Modal from "../../components/Modal";
 
+import { useTargetRef, useFootRef } from "../../hooks/useTargetRef";
 import { useGetFolderLink } from "../../hooks/useFolder";
-import { useRouter } from "next/router";
-import Image from "next/image";
+
+import * as F from "./styled";
+import AddLink from "@/components/AddLink";
 
 // interface CardData {
 //   createdAt: string;
@@ -75,13 +77,11 @@ function Folder() {
   }
 `;
 
-  const ClickModalOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const ClickModalOpen = (modalValue: string, modalSub: string) => (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const modalValue = e.currentTarget.getAttribute("data-title");
-    const modalSub = e.currentTarget.getAttribute("data-stat");
     setModalOpen(true);
-    setModalValue(modalValue || "");
-    setModalSub(modalSub || "");
+    setModalValue(modalValue);
+    setModalSub(modalSub);
   };
 
   useGetFolderLink({ selectList, folderLinkMock, setFoldLink });
@@ -99,26 +99,10 @@ function Folder() {
         />
       ) : null}
 
-      <F.Main ref={targetRef}>
-        {scrollAddUrl ? (
-          <F.addLink>
-            <div style={{ width: "20px", height: "20px", position: "relative" }}>
-              <Image src="/img/link.png" alt="linkimg" fill style={{ objectFit: "cover" }} />
-            </div>
-            <F.addInput placeholder="링크를 추가해 보세요" />
-            <F.addButton>추가하기</F.addButton>
-          </F.addLink>
-        ) : null}
-      </F.Main>
+      <F.Main ref={targetRef}>{scrollAddUrl ? <AddLink /> : null}</F.Main>
       {!scrollAddUrl ? (
         <F.BotMain>
-          <F.addLink>
-            <div style={{ width: "20px", height: "20px", position: "relative" }}>
-              <Image src="/img/link.png" alt="linkimg" fill style={{ objectFit: "cover" }} />
-            </div>
-            <F.addInput placeholder="링크를 추가해 보세요" />
-            <F.addButton>추가하기</F.addButton>
-          </F.addLink>
+          <AddLink />
         </F.BotMain>
       ) : null}
       <Search id={id} name={"folder"} />
@@ -127,19 +111,19 @@ function Folder() {
         <F.cardTitleH2>{foldLinkTitle}</F.cardTitleH2>
         {foldLinkTitle !== "전체" ? (
           <F.cardTitleBtnBox>
-            <F.cardTitleBtn onClick={ClickModalOpen} data-title="폴더 공유" data-stat={foldLinkTitle}>
+            <F.cardTitleBtn onClick={ClickModalOpen("폴더 공유", foldLinkTitle)}>
               <div style={{ width: "20px", height: "20px", position: "relative" }}>
                 <Image src="/img/share.png" alt="shareImg" fill />
               </div>
               <p>공유</p>
             </F.cardTitleBtn>
-            <F.cardTitleBtn onClick={ClickModalOpen} data-title="폴더 이름 변경">
+            <F.cardTitleBtn onClick={ClickModalOpen("폴더 이름 변경", foldLinkTitle)}>
               <div style={{ width: "20px", height: "20px", position: "relative" }}>
                 <Image src="/img/pen.png" alt="renameImg" fill />
               </div>
               <p>이름 변경</p>
             </F.cardTitleBtn>
-            <F.cardTitleBtn onClick={ClickModalOpen} data-title="폴더 삭제" data-stat={foldLinkTitle}>
+            <F.cardTitleBtn onClick={ClickModalOpen("폴더 삭제", foldLinkTitle)}>
               <div style={{ width: "20px", height: "20px", position: "relative" }}>
                 <Image src="/img/delete.png" alt="deleteImg" fill />
               </div>

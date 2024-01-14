@@ -1,11 +1,12 @@
-import * as S from "./styled";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import axios from "@/lib/axios";
+
 import Favor from "../../components/Favor";
 import Search from "../../components/Search";
 import Card from "../../components/Card";
-// import { useLocation } from "react-router";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import axios from "@/lib/axios";
+
+import * as S from "./styled";
 
 interface UserFolder {
   img: string;

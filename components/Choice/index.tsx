@@ -39,6 +39,8 @@ function Choice({ data, clickList, selectList }: TChoice) {
             value={item.id}
             title={item.name}
             onClick={clickList}
+            // styleId={item.id}
+            // 왜 위에 props가 스타일드 컴포넌트로 안넘어가지..
             style={{
               backgroundColor: selectList === item.id ? "var(--blue)" : "#fff",
               color: selectList === item.id ? "#fff" : "black",

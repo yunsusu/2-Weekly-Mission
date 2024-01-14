@@ -1,8 +1,9 @@
-import Link from "next/link";
-import { useState, FormEvent, useEffect } from "react";
-import style from "@/styles/SignUp.module.css";
-import axios from "@/lib/axios";
+import { useState, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import axios from "@/lib/axios";
+import { useToggle } from "@/hooks/useToggle";
+import Link from "next/link";
+import style from "@/styles/SignUp.module.css";
 
 interface SignInProps {}
 interface IFormInput {
@@ -11,10 +12,11 @@ interface IFormInput {
 }
 
 const SignIn: React.FC<SignInProps> = () => {
-  const [pwdBool, setPwdBool] = useState(false);
+  const [pwdBool, togglePwd] = useToggle(false);
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
-  const [wrong, setWrong] = useState<boolean>(false);
+  const [emailClass, setEmailClass] = useState<string>("");
+  const [pwdClass, setPwdClass] = useState<string>("");
 
   const { register, handleSubmit } = useForm<IFormInput>();
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
@@ -32,20 +34,16 @@ const SignIn: React.FC<SignInProps> = () => {
     }
   }, []);
 
-  const togglePwd = () => {
-    setPwdBool((pre) => !pre);
-  };
-
   const validateEmail = (email: string, inputElement: HTMLInputElement) => {
     const isValidEmail = /\S+@\S+\.\S+/.test(email);
     setEmailError(isValidEmail ? null : "올바른 이메일 형식이 아닙니다.");
-    inputElement.style.borderColor = isValidEmail ? "#ccd5e3" : "red";
+    setEmailClass(isValidEmail ? "" : "emailError");
   };
-
+  console.log(emailClass);
   const validatePassword = (password: string, inputElement: HTMLInputElement) => {
     const isPasswordValid = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/.test(password);
-    setPasswordError(isPasswordValid ? null : "비밀번호는 숫자와 영어가 둘 다 들어가야 하고, 8자 이상이어야 합니다.");
-    inputElement.style.borderColor = isPasswordValid ? "#ccd5e3" : "red";
+    setPasswordError(isPasswordValid ? null : "비밀번호는 숫자와 영문을 포함하여 8자 이상이어야 합니다.");
+    setPwdClass(isPasswordValid ? "" : "pwdError");
   };
 
   const handleFocusOut = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -68,7 +66,8 @@ const SignIn: React.FC<SignInProps> = () => {
       } else {
       }
     } catch (err) {
-      setWrong(true);
+      setEmailClass("emailError");
+      setPwdClass("pwdError");
       setPasswordError("이메일 혹은 비밀번호가 잘못되었습니다");
       setEmailError("이메일 혹은 비밀번호가 잘못되었습니다");
     }
@@ -85,7 +84,7 @@ const SignIn: React.FC<SignInProps> = () => {
         <div className={style.signTop}>
           <h1>
             <Link href="/">
-              <img src="../img/logo.png" alt="logo" />
+              <img src="/img/logo.png" alt="logo" />
             </Link>
           </h1>
 
@@ -98,11 +97,11 @@ const SignIn: React.FC<SignInProps> = () => {
               <label htmlFor="email">이메일</label>
               <input
                 {...register("email")}
+                className={`${emailClass === "emailError" ? style.emailError : ""}`}
                 type="email"
                 name="email"
                 id={style.mail}
                 onBlur={handleFocusOut}
-                style={{ borderColor: !wrong ? "#ccd5e3" : "red" }}
               />
 
               {/* 이메일 형식 에러 메시지 */}
@@ -112,13 +111,13 @@ const SignIn: React.FC<SignInProps> = () => {
               <div className={style.pwd}>
                 <input
                   {...register("password")}
+                  className={`${pwdClass === "pwdError" ? style.pwdError : ""}`}
                   type={!pwdBool ? "password" : "text"}
                   name="password"
                   id={style.pwd}
                   onBlur={handleFocusOut}
-                  style={{ borderColor: !wrong ? "#ccd5e3" : "red" }}
                 />
-                <img src="../img/eye-off.png" alt="eye-off" className={style.eye} onClick={togglePwd} />
+                <img src="/img/eye-off.png" alt="eye-off" className={style.eye} onClick={togglePwd} />
               </div>
 
               {/* 비밀번호 규칙 에러 메시지 */}
@@ -137,10 +136,10 @@ const SignIn: React.FC<SignInProps> = () => {
           <p>소셜 로그인</p>
           <div className={style.social}>
             <Link href="https://www.google.com/">
-              <img src="../img/google.png" alt="" />
+              <img src="/img/google.png" alt="구글" />
             </Link>
             <Link href="https://www.kakaocorp.com/page/">
-              <img src="../img/kakao.png" alt="" />
+              <img src="/img/kakao.png" alt="카카오" />
             </Link>
           </div>
         </div>

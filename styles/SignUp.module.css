@@ -73,6 +73,14 @@
     border: 1px solid var(--gray3);
 }
 
+.login .signTop form .write input.emailError {
+    border-color: red;
+}
+
+.login .signTop form .write input.pwdError {
+    border-color: red;
+}
+
 .login .signTop form .write input:focus {
     border: 1px solid var(--blue);
 }

@@ -1,5 +1,5 @@
-import * as H from "./styled";
 import Link from "next/link";
+import * as H from "./styled";
 
 interface UserData {
   auth_id: string;

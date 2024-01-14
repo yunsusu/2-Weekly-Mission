@@ -1,5 +1,5 @@
-import * as Foot from "./styled";
 import Link from "next/link";
+import * as Foot from "./styled";
 
 function Footer() {
   return (

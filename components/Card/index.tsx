@@ -1,9 +1,11 @@
 import { useState } from "react";
-import * as S from "./styled";
-import { formatDateYMD } from "../../utils/formatDateYMD";
-import { sortAgo } from "../../utils/sortAgo";
 import Link from "next/link";
 import Image from "next/image";
+
+import { formatDateYMD } from "../../utils/formatDateYMD";
+import { sortAgo } from "../../utils/sortAgo";
+
+import * as S from "./styled";
 
 interface CardData {
   created_at?: string;
@@ -18,7 +20,7 @@ interface CardData {
 
 interface CardProps {
   data: CardData;
-  modalOpen: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  modalOpen: any;
 }
 
 function Card({ data, modalOpen }: CardProps) {
@@ -76,12 +78,8 @@ function Card({ data, modalOpen }: CardProps) {
             </S.kebab>
             {kebabOpen ? (
               <S.kebabSelect>
-                <S.kebabSelectList onClick={modalOpen} data-title="링크 삭제" data-stat={url}>
-                  삭제하기
-                </S.kebabSelectList>
-                <S.kebabSelectList onClick={modalOpen} data-title="폴더에 추가" data-stat="링크 주소">
-                  폴더에 추가
-                </S.kebabSelectList>
+                <S.kebabSelectList onClick={modalOpen("링크 삭제", url)}>삭제하기</S.kebabSelectList>
+                <S.kebabSelectList onClick={modalOpen("폴더에 추가", "링크 주소")}>폴더에 추가</S.kebabSelectList>
               </S.kebabSelect>
             ) : null}
           </S.kebabAgo>
