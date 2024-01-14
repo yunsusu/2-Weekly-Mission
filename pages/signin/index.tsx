@@ -36,13 +36,21 @@ const SignIn: React.FC<SignInProps> = () => {
 
   const validateEmail = (email: string, inputElement: HTMLInputElement) => {
     const isValidEmail = /\S+@\S+\.\S+/.test(email);
-    setEmailError(isValidEmail ? null : "올바른 이메일 형식이 아닙니다.");
+    if (email === "") {
+      setEmailError("이메일을 입력해 주세요");
+    } else {
+      setEmailError(isValidEmail ? null : "올바른 이메일 형식이 아닙니다.");
+    }
     setEmailClass(isValidEmail ? "" : "emailError");
   };
-  console.log(emailClass);
+
   const validatePassword = (password: string, inputElement: HTMLInputElement) => {
     const isPasswordValid = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/.test(password);
-    setPasswordError(isPasswordValid ? null : "비밀번호는 숫자와 영문을 포함하여 8자 이상이어야 합니다.");
+    if (password === "") {
+      setPasswordError("비밀번호를 입력해 주세요");
+    } else {
+      setPasswordError(isPasswordValid ? null : "비밀번호는 숫자와 영문을 포함하여 8자 이상이어야 합니다.");
+    }
     setPwdClass(isPasswordValid ? "" : "pwdError");
   };
 
@@ -102,6 +110,7 @@ const SignIn: React.FC<SignInProps> = () => {
                 name="email"
                 id={style.mail}
                 onBlur={handleFocusOut}
+                placeholder="이메일을 입력해 주세요"
               />
 
               {/* 이메일 형식 에러 메시지 */}
@@ -116,6 +125,7 @@ const SignIn: React.FC<SignInProps> = () => {
                   name="password"
                   id={style.pwd}
                   onBlur={handleFocusOut}
+                  placeholder="비밀번호를 입력해 주세요"
                 />
                 <img src="/img/eye-off.png" alt="eye-off" className={style.eye} onClick={togglePwd} />
               </div>

@@ -16,14 +16,8 @@ interface UserData {
 }
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [userStatus, setUserStatus] = useState<boolean>(false);
   const [userData, setUserData] = useState<UserData | null>(null);
-  const [sharedSearch, setSharedSearch] = useState<string>("");
-  const [userFolder, setUserFolder] = useState({
-    name: "",
-    userName: "",
-    img: "",
-  });
+  const [login, setLogin] = useState<string | null>(null);
 
   async function UserApi() {
     const res = await axios.get(`/users/1`);
@@ -31,40 +25,15 @@ export default function App({ Component, pageProps }: AppProps) {
   }
 
   useEffect(() => {
-    UserApi();
+    let LS = localStorage.getItem("login");
+    setLogin(LS);
   }, []);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const folderResult = await getFolders();
-  //       const userResult = await UserApi(userId);
-
-  //       setUserFolder((prev) => ({
-  //         ...prev,
-  //         name: folderResult.folder.name,
-  //         userName: folderResult.folder.owner.name,
-  //         img: folderResult.folder.owner.profileImageSource,
-  //       }));
-
-  //       setUserStatus(true);
-  //       if (sharedSearch !== null) {
-  //         setCardData(
-  //           folderResult.folder.links.filter(
-  //             (item: any) => item.description && item.description.indexOf(sharedSearch) !== -1
-  //           )
-  //         );
-  //       } else {
-  //         setCardData([...folderResult.folder.links]);
-  //       }
-  //       setUserData(userResult.data[0] as UserData);
-  //     } catch (error) {
-  //       console.log(error);
-  //       setUserStatus(false);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [sharedSearch]);
+  useEffect(() => {
+    if (login !== null) {
+      UserApi();
+    }
+  }, [login]);
 
   return (
     <>

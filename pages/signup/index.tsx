@@ -46,20 +46,33 @@ function SignUp() {
     }
   }, []);
 
-  const handleEmailChange = (e: FormEvent<HTMLInputElement>) => {
-    const inputValue = e.currentTarget.value;
-    setWrongMail(true);
+  const handleFocusOut = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (e.target.name === "email") {
+      handleEmailChange(e.target.value, e.currentTarget);
+    } else if (e.target.name === "pwd") {
+      handlePasswordChange(e.target.value, e.currentTarget);
+    }
+  };
 
-    const isValidEmail = /\S+@\S+\.\S+/.test(inputValue);
-    setEmailError(isValidEmail ? null : "올바른 이메일 형식이 아닙니다.");
+  const handleEmailChange = (email: string, inputElement: HTMLInputElement) => {
+    setWrongMail(true);
+    const isValidEmail = /\S+@\S+\.\S+/.test(email);
+    if (email === "") {
+      setEmailError("이메일을 입력해 주세요");
+    } else {
+      setEmailError(isValidEmail ? null : "올바른 이메일 주소가 아닙니다.");
+    }
     setEmailClass(isValidEmail ? "" : "emailError");
   };
 
-  const handlePasswordChange = (e: FormEvent<HTMLInputElement>) => {
-    const inputValue = e.currentTarget.value;
+  const handlePasswordChange = (pwd: string, inputElement: HTMLInputElement) => {
+    const isPasswordValid = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/.test(pwd);
 
-    const isPasswordValid = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/.test(inputValue);
-    setPasswordError(isPasswordValid ? null : "비밀번호는 숫자와 영문을 포함하여 8자 이상이어야 합니다.");
+    if (pwd === "") {
+      setPasswordError("비밀번호를 입력해 주세요");
+    } else {
+      setPasswordError(isPasswordValid ? null : "비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.");
+    }
     setPwdClass(isPasswordValid ? "" : "pwdError");
   };
 
@@ -131,7 +144,8 @@ function SignUp() {
                 type="email"
                 name="email"
                 id={style.mail}
-                onChange={handleEmailChange}
+                onBlur={handleFocusOut}
+                placeholder="이메일을 입력해주세요"
                 required
               />
               {emailError && <p style={{ color: "red" }}>{emailError}</p>}
@@ -145,7 +159,8 @@ function SignUp() {
                   type={showPassword ? "text" : "password"}
                   name="pwd"
                   id={style.pwd}
-                  onChange={handlePasswordChange}
+                  onBlur={handleFocusOut}
+                  placeholder="영문, 숫자를 조합해 8자 이상 입력해 주세요."
                   required
                 />
                 <img src="/img/eye-off.png" alt="eye-off" className={style.eye} onClick={toggleShowPassword} />
@@ -160,7 +175,8 @@ function SignUp() {
                   type={showConfirmPassword ? "text" : "password"}
                   name="confirmPwd"
                   id={style.confirmPwd}
-                  onChange={handleConfirmPasswordChange}
+                  onBlur={handleConfirmPasswordChange}
+                  placeholder="비밀번호와 일치하는 값을 입력해 주세요."
                   required
                 />
                 <img src="/img/eye-off.png" alt="eye-off" className={style.eye} onClick={toggleShowConfirmPassword} />
