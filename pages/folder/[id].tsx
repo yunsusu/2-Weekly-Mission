@@ -15,15 +15,6 @@ import { useGetFolderLink } from "../../hooks/useFolder";
 import * as F from "./styled";
 import AddLink from "@/components/AddLink";
 
-// interface CardData {
-//   createdAt: string;
-//   description: string;
-//   id: number;
-//   imageSource: string;
-//   title: string;
-//   url: string;
-// }
-
 function Folder() {
   const [foldData, setFoldeData] = useState<any[]>([]);
   const [selectList, setSelectList] = useState<number>(0);
@@ -34,7 +25,6 @@ function Folder() {
   const [modalValue, setModalValue] = useState<string>("");
   const [modalSub, setModalSub] = useState<string>("");
   const [scrollAddUrl, setScrollAddUrl] = useState<boolean>(true);
-  // const [cardData, setCardData] = useState<CardData[]>([]);
 
   const targetRef = useRef<HTMLDivElement>(null);
   const footTargetRef = useRef<HTMLDivElement>(null);
@@ -99,7 +89,7 @@ function Folder() {
         />
       ) : null}
 
-      <F.Main ref={targetRef}>{scrollAddUrl ? <AddLink /> : null}</F.Main>
+      <F.Main ref={targetRef}>{scrollAddUrl && <AddLink />}</F.Main>
       {!scrollAddUrl ? (
         <F.BotMain>
           <AddLink />
@@ -109,7 +99,7 @@ function Folder() {
       <Choice data={foldData} selectList={selectList} clickList={clickList} />
       <F.cardTitle>
         <F.cardTitleH2>{foldLinkTitle}</F.cardTitleH2>
-        {foldLinkTitle !== "전체" ? (
+        {foldLinkTitle !== "전체" && (
           <F.cardTitleBtnBox>
             <F.cardTitleBtn onClick={ClickModalOpen("폴더 공유", foldLinkTitle)}>
               <div style={{ width: "20px", height: "20px", position: "relative" }}>
@@ -130,7 +120,7 @@ function Folder() {
               <p>삭제</p>
             </F.cardTitleBtn>
           </F.cardTitleBtnBox>
-        ) : null}
+        )}
       </F.cardTitle>
       {foldLink.length > 0 ? (
         <F.cardBox>

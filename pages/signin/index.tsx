@@ -67,7 +67,6 @@ const SignIn: React.FC<SignInProps> = () => {
 
     try {
       const res = await signin(userData);
-      console.log(res);
       if (res.status === 200) {
         localStorage.setItem("login", res.data.data.accessToken);
         window.location.href = "/folder/1";

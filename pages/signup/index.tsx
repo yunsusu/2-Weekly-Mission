@@ -16,8 +16,8 @@ interface TsignUp {
 }
 
 function SignUp() {
-  const [showPassword, toggleShowPassword] = useToggle(false);
-  const [showConfirmPassword, toggleShowConfirmPassword] = useToggle(false);
+  const [isShowPassword, toggleIsShowPassword] = useToggle(false);
+  const [isShowConfirmPassword, toggleIsShowConfirmPassword] = useToggle(false);
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [confirmPasswordError, setConfirmPasswordError] = useState<string | null>(null);
@@ -149,21 +149,21 @@ function SignUp() {
                 required
               />
               {emailError && <p style={{ color: "red" }}>{emailError}</p>}
-              {wrongMail ? null : <p style={{ color: "red" }}>이메일이 중복되었습니다.</p>}
+              {!wrongMail && <p style={{ color: "red" }}>이메일이 중복되었습니다.</p>}
 
               <label htmlFor="pwd">비밀번호</label>
               <div className={style.pwd}>
                 <input
                   {...register("pwd")}
                   className={`${pwdClass === "pwdError" ? style.pwdError : ""}`}
-                  type={showPassword ? "text" : "password"}
+                  type={isShowPassword ? "text" : "password"}
                   name="pwd"
                   id={style.pwd}
                   onBlur={handleFocusOut}
                   placeholder="영문, 숫자를 조합해 8자 이상 입력해 주세요."
                   required
                 />
-                <img src="/img/eye-off.png" alt="eye-off" className={style.eye} onClick={toggleShowPassword} />
+                <img src="/img/eye-off.png" alt="eye-off" className={style.eye} onClick={toggleIsShowPassword} />
               </div>
               {passwordError && <p style={{ color: "red" }}>{passwordError}</p>}
 
@@ -172,14 +172,14 @@ function SignUp() {
                 <input
                   {...register("confirmPwd")}
                   className={`${pwdConfirm === "pwdConfirmError" ? style.pwdError : ""}`}
-                  type={showConfirmPassword ? "text" : "password"}
+                  type={isShowConfirmPassword ? "text" : "password"}
                   name="confirmPwd"
                   id={style.confirmPwd}
                   onBlur={handleConfirmPasswordChange}
                   placeholder="비밀번호와 일치하는 값을 입력해 주세요."
                   required
                 />
-                <img src="/img/eye-off.png" alt="eye-off" className={style.eye} onClick={toggleShowConfirmPassword} />
+                <img src="/img/eye-off.png" alt="eye-off" className={style.eye} onClick={toggleIsShowConfirmPassword} />
               </div>
               {confirmPasswordError && <p style={{ color: "red" }}>{confirmPasswordError}</p>}
             </div>

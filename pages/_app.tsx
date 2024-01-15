@@ -17,7 +17,7 @@ interface UserData {
 
 export default function App({ Component, pageProps }: AppProps) {
   const [userData, setUserData] = useState<UserData | null>(null);
-  const [login, setLogin] = useState<string | null>(null);
+  const [login, setLogin] = useState<string>("null");
 
   async function UserApi() {
     const res = await axios.get(`/users/1`);
@@ -26,11 +26,12 @@ export default function App({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     let LS = localStorage.getItem("login");
-    setLogin(LS);
+    setLogin(String(LS));
   }, []);
 
   useEffect(() => {
-    if (login !== null) {
+    console.log(login);
+    if (login !== "null") {
       UserApi();
     }
   }, [login]);
