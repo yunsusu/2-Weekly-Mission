@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import axios from "@/lib/axios";
 import { useToggle } from "@/hooks/useToggle";
 import Link from "next/link";
 import style from "@/styles/SignUp.module.css";
+import { useRouter } from "next/router";
+import { Cont } from "@/pages/_app";
 
 interface SignInProps {}
 interface IFormInput {
@@ -27,10 +29,12 @@ const SignIn: React.FC<SignInProps> = () => {
     loginGo(userData);
   };
 
+  const cont = useContext(Cont);
+  const router = useRouter();
   useEffect(() => {
     const LS = localStorage.getItem("login");
     if (LS !== null) {
-      window.location.href = "/folder/1";
+      router.push(`/folder/${cont}`);
     }
   }, []);
 
@@ -63,13 +67,12 @@ const SignIn: React.FC<SignInProps> = () => {
   };
 
   const loginGo = async (userData: any) => {
-    // e.preventDefault();
-
     try {
       const res = await signin(userData);
+      console.log(res);
       if (res.status === 200) {
         localStorage.setItem("login", res.data.data.accessToken);
-        window.location.href = "/folder/1";
+        router.push(`/folder/${cont}`);
       } else {
       }
     } catch (err) {

@@ -1,9 +1,11 @@
-import { useState, FormEvent, useEffect } from "react";
+import { useState, FormEvent, useEffect, useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Link from "next/link";
 import style from "@/styles/SignUp.module.css";
 import axios from "@/lib/axios";
 import { useToggle } from "@/hooks/useToggle";
+import { useRouter } from "next/router";
+import { Cont } from "@/pages/_app";
 
 interface IFormInput {
   email: string;
@@ -39,10 +41,15 @@ function SignUp() {
     signUpGo(userData, userMail);
   };
 
+  const router = useRouter();
+  const confirmPwd = watch("confirmPwd");
+  const password = watch("pwd");
+
+  const cont = useContext(Cont);
   useEffect(() => {
     const LS = localStorage.getItem("login");
     if (LS !== null) {
-      window.location.href = "/folder/1";
+      router.push("/folder/1");
     }
   }, []);
 
@@ -70,15 +77,16 @@ function SignUp() {
 
     if (pwd === "") {
       setPasswordError("비밀번호를 입력해 주세요");
+    } else if (pwd !== confirmPwd) {
+      handleConfirmPasswordChange();
     } else {
       setPasswordError(isPasswordValid ? null : "비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.");
     }
     setPwdClass(isPasswordValid ? "" : "pwdError");
   };
 
-  const password = watch("pwd");
-  const handleConfirmPasswordChange = (e: FormEvent<HTMLInputElement>) => {
-    const confirmPassword = e.currentTarget.value;
+  const handleConfirmPasswordChange = () => {
+    const confirmPassword = confirmPwd;
 
     // 비밀번호 확인 일치 여부 검사
     const isMatch = confirmPassword === password;
@@ -112,7 +120,7 @@ function SignUp() {
         setWrongMail(true);
         const signRes = await signup(userData);
         // localStorage.setItem("login", signRes.data.data.accessToken);
-        window.location.href = "/";
+        router.push("/");
       }
     } catch (err) {
       console.log(err);

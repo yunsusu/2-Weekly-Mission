@@ -4,28 +4,23 @@ const instance = axios.create({
   baseURL: "https://bootcamp-api.codeit.kr/api/",
 });
 
+// 요청 인터셉터를 추가해 토큰을 헤더에 설정
+instance.interceptors.request.use(
+  (config) => {
+    if (typeof window !== "undefined") {
+      // 로컬 스토리지에서 토큰을 가져옴
+      const token = localStorage.getItem("login");
+      if (token) {
+        // 헤더에 토큰을 추가
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    }
+    return config;
+  },
+  (error) => {
+    // 요청 오류 처리
+    return Promise.reject(error);
+  }
+);
+
 export default instance;
-
-// async function fetcher(url: string) {
-//   const response = await fetch(`${BASE_URL}${url}`);
-//   if (!response.ok) {
-//     throw new Error(`HTTP error! status: ${response.status}`);
-//   }
-//   return response.json();
-// }
-
-// export async function UserApi(id: number) {
-//   return instance(`/users/${id}`);
-// }
-
-// export function getFolders() {
-//   return instance("/sample/folder");
-// }
-
-// export async function folderData() {
-//   return instance("/users/1/folders");
-// }
-
-// export async function foldLinks() {
-//   return instance("/users/1/links");
-// }

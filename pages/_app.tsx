@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 interface UserData {
   auth_id: string;
@@ -15,13 +15,17 @@ interface UserData {
   name: string;
 }
 
+export const Cont = createContext<number | null>(null);
+
 export default function App({ Component, pageProps }: AppProps) {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [login, setLogin] = useState<string>("null");
+  const [userId, setUserId] = useState<number | null>(null);
 
   async function UserApi() {
-    const res = await axios.get(`/users/1`);
+    const res = await axios.get(`/users`);
     setUserData(res.data.data[0] as UserData);
+    setUserId(res.data.data[0].id);
   }
 
   useEffect(() => {
@@ -30,7 +34,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
 
   useEffect(() => {
-    console.log(login);
+    // console.log(login);
     if (login !== "null") {
       UserApi();
     }
@@ -38,9 +42,11 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <Header userData={userData} />
-      <Component {...pageProps} />
-      <Footer />
+      <Cont.Provider value={userId}>
+        <Header userData={userData} />
+        <Component {...pageProps} />
+        <Footer />
+      </Cont.Provider>
     </>
   );
 }

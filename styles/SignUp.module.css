@@ -61,6 +61,11 @@
     gap: 12px;
 }
 
+.login .signTop form .write p {
+    font-size: 1.2rem;
+    text-align: left;
+}
+
 .login .signTop form .write label {
     font-size: 14px;
     font-weight: 400;

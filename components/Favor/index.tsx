@@ -19,8 +19,8 @@ interface TFavor {
 function Favor({ user }: TFavor) {
   return (
     <S.shared>
-      <S.userimg src={user.owner.profileImageSource} alt="userimg" />
-      <S.pfirst>{`${user.owner.name}`}</S.pfirst>
+      {/* <S.userimg src={user.image_source} alt="userimg" />
+      <S.pfirst>{`${user.owner.name}`}</S.pfirst> */}
       <S.psecond>{`${user.name}`}</S.psecond>
     </S.shared>
   );

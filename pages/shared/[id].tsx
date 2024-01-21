@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "@/lib/axios";
 
@@ -32,22 +32,32 @@ function App() {
   const [cardData, setCardData] = useState<CardData[]>([]);
   const [folderResult, setFolderResult] = useState([]);
   const [userStatus, setUserStatus] = useState();
-  // const [sharedSearch, setSharedSearch] = useState<string>("");
+
   const router = useRouter();
   const { id } = router.query;
+
   const queryParams = new URLSearchParams(router.asPath.split(/\?/)[1]);
   const searchValue = queryParams.get("search");
 
-  async function getFolders() {
-    const res = await axios.get(`/sample/folder`);
-    setCardData(res.data.folder.links);
-    setFolderResult(res.data.folder.links);
-    setUserStatus(res.data.folder);
+  async function getFolders(id: string | string[]) {
+    const res = await axios.get(`/folders/${id}`);
+    setFolderResult(res.data.folder?.links || []);
+    console.log(res);
+    setUserStatus(res.data.data[0]);
+  }
+  async function getUser(id: string | string[]) {
+    console.log(id);
+    const res = await axios.get(`/users/${id}/links`);
+    console.log(res);
+    setCardData(res.data.data);
   }
 
   useEffect(() => {
-    getFolders();
-  }, []);
+    if (id) {
+      getFolders(id);
+      getUser(id);
+    }
+  }, [id]);
 
   useEffect(() => {
     if (!searchValue) {
@@ -65,7 +75,7 @@ function App() {
 
   return (
     <>
-      {userStatus ? <Favor user={userStatus} /> : <S.shared>로그인을 해주세요</S.shared>}
+      {userStatus ? <Favor user={userStatus} /> : <S.shared>데이터가 없습니다.</S.shared>}
       <Search id={id} name={"shared"} />
       <S.cardBox>
         {cardData.map((data) => (

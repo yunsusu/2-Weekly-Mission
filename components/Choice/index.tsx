@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import * as F from "./styled";
 
 interface Data {
@@ -15,9 +16,15 @@ interface TChoice {
   data: FolderData;
   clickList: (e: React.MouseEvent<HTMLButtonElement>) => void;
   selectList: number;
+  setSelectList: (value: number) => void;
 }
 
-function Choice({ data, clickList, selectList }: TChoice) {
+function Choice({ data, clickList, selectList, setSelectList }: TChoice) {
+  useEffect(() => {
+    if (selectList !== 0 && !data.some((item) => item.id === selectList)) {
+      setSelectList(0);
+    }
+  }, [selectList, data, setSelectList]);
   return (
     <F.choiceBtnWrap>
       <F.choiceBtn

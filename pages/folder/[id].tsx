@@ -33,23 +33,41 @@ function Folder() {
 
   const router = useRouter();
   const { id } = router.query;
+  useEffect(() => {
+    const LS = localStorage.getItem("login");
+    if (LS === null) {
+      router.push(`/signin`);
+    }
+  }, []);
+  useEffect(() => {
+    if (id) {
+      setSelectList(Number(id));
+    }
+  }, [id]);
 
   //api 부분
   //카드 데이터
   async function getFolders(userId: string | string[]) {
     const res = await axios.get(`/users/${userId}/links`);
+    console.log(res);
     setFoldLinkMock(res.data.data);
   }
   // 태그 이름 가져오는거
   async function folderData(userId: string | string[]) {
     const res = await axios.get(`/users/${userId}/folders`);
+    console.log(res);
     setFoldeData(res.data.data);
+  }
+  async function folderTest(userId: string | string[]) {
+    const res = await axios.get(`/folders/14`);
+    console.log(res);
   }
 
   useEffect(() => {
     if (id) {
       getFolders(id);
       folderData(id);
+      folderTest(id);
     }
   }, [id]);
 
@@ -96,7 +114,7 @@ function Folder() {
         </F.BotMain>
       ) : null}
       <Search id={id} name={"folder"} />
-      <Choice data={foldData} selectList={selectList} clickList={clickList} />
+      <Choice data={foldData} selectList={selectList} clickList={clickList} setSelectList={setSelectList} />
       <F.cardTitle>
         <F.cardTitleH2>{foldLinkTitle}</F.cardTitleH2>
         {foldLinkTitle !== "전체" && (
