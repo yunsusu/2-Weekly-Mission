@@ -6,9 +6,15 @@ export const shared = styled.div`
   text-align: center;
   background-color: var(--gray5);
 `;
-export const userimg = styled.img`
+export const userimg = styled.div`
   width: 6rem;
   height: 6rem;
+  position: relative;
+  left: 50%;
+  transform: translatex(-50%);
+  & image {
+    object-fit: cover;
+  }
 `;
 export const pfirst = styled.p`
   font-size: 1.6rem;

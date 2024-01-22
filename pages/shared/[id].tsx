@@ -40,16 +40,17 @@ function App() {
   const searchValue = queryParams.get("search");
 
   async function getFolders(id: string | string[]) {
+    console.log(id);
     const res = await axios.get(`/folders/${id}`);
-    setFolderResult(res.data.folder?.links || []);
     console.log(res);
-    setUserStatus(res.data.data[0]);
+    setFolderResult(res.data.data[0] || []);
   }
   async function getUser(id: string | string[]) {
-    console.log(id);
     const res = await axios.get(`/users/${id}/links`);
-    console.log(res);
+    const ress = await axios.get(`/users/${id}`);
+    console.log(ress);
     setCardData(res.data.data);
+    setUserStatus(ress.data.data[0]);
   }
 
   useEffect(() => {
@@ -61,10 +62,10 @@ function App() {
 
   useEffect(() => {
     if (!searchValue) {
-      setCardData([...folderResult]);
+      setCardData([...cardData]);
       return;
     }
-    const filteredLinks = folderResult.filter(
+    const filteredLinks = cardData.filter(
       (item: any) =>
         (item.description && item.description.indexOf(searchValue) !== -1) ||
         (item.title && item.title.indexOf(searchValue) !== -1) ||
@@ -75,7 +76,7 @@ function App() {
 
   return (
     <>
-      {userStatus ? <Favor user={userStatus} /> : <S.shared>데이터가 없습니다.</S.shared>}
+      {userStatus ? <Favor user={userStatus} folder={folderResult} /> : <S.shared>데이터가 없습니다.</S.shared>}
       <Search id={id} name={"shared"} />
       <S.cardBox>
         {cardData.map((data) => (

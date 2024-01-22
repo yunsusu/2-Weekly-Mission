@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { createGlobalStyle } from "styled-components";
 import Image from "next/image";
@@ -15,6 +15,7 @@ import { useGetFolderLink } from "../../hooks/useFolder";
 import * as F from "./styled";
 import AddLink from "@/components/AddLink";
 
+import { Cont } from "@/pages/_app";
 function Folder() {
   const [foldData, setFoldeData] = useState<any[]>([]);
   const [selectList, setSelectList] = useState<number>(0);
@@ -31,8 +32,24 @@ function Folder() {
   useTargetRef({ targetRef, setScrollAddUrl });
   useFootRef({ footTargetRef, setScrollAddUrl });
 
+  const userIdd = useContext(Cont);
+
   const router = useRouter();
   const { id } = router.query;
+  useEffect(() => {
+    if (router.isReady) {
+      const queryId = router.query.id;
+      if (queryId) {
+        const numericId = Number(queryId);
+        if (!isNaN(numericId)) {
+          setSelectList(numericId);
+          // 필요한 데이터 로딩 함수 호출
+          // 예: getFolders(userIdd); 또는 folderData(userIdd); 등
+        }
+      }
+    }
+  }, [router.isReady, router.query.id]);
+
   useEffect(() => {
     const LS = localStorage.getItem("login");
     if (LS === null) {
@@ -59,24 +76,29 @@ function Folder() {
     setFoldeData(res.data.data);
   }
   async function folderTest(userId: string | string[]) {
-    const res = await axios.get(`/folders/14`);
+    const res = await axios.get(`/folders/${userId}`);
     console.log(res);
   }
 
   useEffect(() => {
-    if (id) {
-      getFolders(id);
-      folderData(id);
-      folderTest(id);
+    if (userIdd) {
+      getFolders(userIdd);
+      folderData(userIdd);
+      folderTest(userIdd);
     }
-  }, [id]);
+  }, [userIdd]);
 
   // api 끝
 
   const clickList = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
-    setSelectList(Number(target.value));
+    const newId = Number(target.value);
+    setSelectList(newId);
     setFoldLinkTitle(target.title);
+
+    // URL 쿼리 파라미터 업데이트 (브라우저 히스토리를 직접 조작)
+    const newUrl = newId === 0 ? `/folder` : `/folder/${newId}`;
+    window.history.pushState({}, "", newUrl);
   };
 
   const FolderHeaderStyle = createGlobalStyle`
@@ -93,6 +115,14 @@ function Folder() {
   };
 
   useGetFolderLink({ selectList, folderLinkMock, setFoldLink });
+
+  // useEffect(() => {
+  //   if (id) {
+  //     console.log(id);
+  //     setSelectList(id);
+  //     router.push(`/folder/${selectList}`);
+  //   }
+  // }, []);
 
   return (
     <div>

@@ -72,6 +72,7 @@ const SignIn: React.FC<SignInProps> = () => {
       console.log(res);
       if (res.status === 200) {
         localStorage.setItem("login", res.data.data.accessToken);
+        console.log(cont);
         router.push(`/folder/${cont}`);
       } else {
       }
